@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.loginForm">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="323.0" stroke="BLACK" strokeType="INSIDE" width="513.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" focusDistance="-1.0" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.25" green="0.25" blue="0.25" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" stroke="BLACK" strokeType="INSIDE" width="513.0">
+         <fill>
+            <RadialGradient centerX="0.5111111111111111" centerY="0.5428571428571428" focusAngle="-42.27">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.3274305462837219" green="0.0069444444961845875" blue="0.5" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <Text fill="WHITE" layoutX="199.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="95.443359375">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="userIDTextField" alignment="CENTER" layoutX="140.0" layoutY="137.0" prefHeight="25.0" prefWidth="233.0" promptText="User ID" />
+      <PasswordField fx:id="passwordPasswordField" alignment="CENTER" layoutX="140.0" layoutY="189.0" prefHeight="25.0" prefWidth="233.0" promptText="Password" />
+      <Label fx:id="userLocationLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="370.0" layoutY="292.0" prefHeight="17.0" prefWidth="129.0" />
+      <Label fx:id="loginErrorLabel" alignment="CENTER" layoutX="140.0" layoutY="260.0" prefHeight="41.0" prefWidth="233.0" text="Username or Password incorrect. &#10;Please try again." textAlignment="CENTER" textFill="#4300a1">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="212.0" layoutY="227.0" mnemonicParsing="false" onAction="#loginOnAction" prefHeight="25.0" prefWidth="89.0" text="Login">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -10,15 +10,25 @@ import javafx.stage.Stage;
 /**
  * This class creates an app that displays messages.
  */
-public class Main {
+public class Main extends Application {
 
-    /**
-     * This is the main method.
-     * @param args
-     */
+    public static Stage primaryStage;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("../view/loginForm.fxml"));
+        primaryStage.setTitle("Scheduling Application");
+        primaryStage.setScene(new Scene(root, 513, 323));
+        primaryStage.show();
+        Main.primaryStage.setResizable(false);
+    }
+
     public static void main(String[] args) {
 
         JDBC.openConnection();
+
+        launch(args);
 
         JDBC.closeConnection();
     }
