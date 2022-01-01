@@ -1,6 +1,6 @@
 package Model;
 
-import Utilities.JDBC;
+import DOA.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,12 +8,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * This class creates an app that displays messages.
+ * Main class is for the start of the Scheduling Application.
  */
 public class Main extends Application {
 
     public static Stage primaryStage;
 
+    /**
+     * Starts the application and opens the Login screen, loginForm.fxml
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -24,6 +29,10 @@ public class Main extends Application {
         Main.primaryStage.setResizable(false);
     }
 
+    /**
+     * Opens and closes the database connection.
+     * @param args
+     */
     public static void main(String[] args) {
 
         JDBC.openConnection();

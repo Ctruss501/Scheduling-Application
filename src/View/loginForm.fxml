@@ -52,7 +52,7 @@
       <TextField fx:id="userIDTextField" alignment="CENTER" layoutX="140.0" layoutY="137.0" prefHeight="25.0" prefWidth="233.0" promptText="User ID" />
       <PasswordField fx:id="passwordPasswordField" alignment="CENTER" layoutX="140.0" layoutY="189.0" prefHeight="25.0" prefWidth="233.0" promptText="Password" />
       <Label fx:id="userLocationLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="370.0" layoutY="292.0" prefHeight="17.0" prefWidth="129.0" />
-      <Label fx:id="loginErrorLabel" alignment="CENTER" layoutX="140.0" layoutY="260.0" prefHeight="41.0" prefWidth="233.0" text="Username or Password incorrect. &#10;Please try again." textAlignment="CENTER" textFill="#4300a1">
+      <Label fx:id="loginErrorLabel" alignment="CENTER" layoutX="140.0" layoutY="260.0" prefHeight="41.0" prefWidth="233.0" text="User ID or Password incorrect. &#10;Please try again." textAlignment="CENTER" textFill="#4300a1">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

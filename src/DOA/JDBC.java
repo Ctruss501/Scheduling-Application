@@ -1,4 +1,4 @@
-package Utilities;
+package DOA;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
