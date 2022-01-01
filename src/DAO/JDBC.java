@@ -1,8 +1,11 @@
-package DOA;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**
+ * JDBC class connects to the data base and opens/closes the connection.
+ */
 public abstract class JDBC {
 
     private static final String protocol = "jdbc";

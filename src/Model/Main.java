@@ -1,6 +1,6 @@
 package Model;
 
-import DOA.JDBC;
+import DAO.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +30,7 @@ public class Main extends Application {
     }
 
     /**
-     * Opens and closes the database connection.
+     * Opens connection to database at start and closes database connection on closing application.
      * @param args
      */
     public static void main(String[] args) {
