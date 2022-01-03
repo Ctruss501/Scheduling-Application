@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainForm">
+   <children>
+      <TableView layoutX="15.0" layoutY="125.0" prefHeight="350.0" prefWidth="1400.0">
+        <columns>
+          <TableColumn prefWidth="100.0" text="Appointment ID" />
+          <TableColumn prefWidth="150.0" text="Title" />
+            <TableColumn prefWidth="225.0" text="Description" />
+            <TableColumn prefWidth="150.0" text="Location" />
+            <TableColumn prefWidth="100.0" text="Contact" />
+            <TableColumn prefWidth="100.0" text="Type" />
+            <TableColumn prefWidth="200.0" text="Start Date &amp; Time" />
+            <TableColumn prefWidth="200.0" text="End Date &amp; Time" />
+            <TableColumn prefWidth="75.0" text="Customer ID" />
+            <TableColumn prefWidth="100.0" text="User ID" />
+        </columns>
+      </TableView>
+      <RadioButton layoutX="56.0" layoutY="14.0" mnemonicParsing="false" text="All" />
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="42.0" text="Filter:" />
+      <RadioButton layoutX="56.0" layoutY="38.0" mnemonicParsing="false" text="Week" />
+      <RadioButton layoutX="56.0" layoutY="62.0" mnemonicParsing="false" text="Month" />
+   </children>
+</AnchorPane>
