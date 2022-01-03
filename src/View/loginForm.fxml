@@ -44,20 +44,20 @@
             </RadialGradient>
          </fill>
       </Rectangle>
-      <Text fill="WHITE" layoutX="199.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="95.443359375">
+      <Text fx:id="loginTitleText" fill="WHITE" layoutX="105.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" textAlignment="CENTER" wrappingWidth="303.0">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="userIDTextField" alignment="CENTER" layoutX="140.0" layoutY="137.0" prefHeight="25.0" prefWidth="233.0" promptText="User ID" />
+      <TextField fx:id="usernameTextField" alignment="CENTER" layoutX="140.0" layoutY="137.0" prefHeight="25.0" prefWidth="233.0" promptText="Username" />
       <PasswordField fx:id="passwordPasswordField" alignment="CENTER" layoutX="140.0" layoutY="189.0" prefHeight="25.0" prefWidth="233.0" promptText="Password" />
       <Label fx:id="userLocationLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="370.0" layoutY="292.0" prefHeight="17.0" prefWidth="129.0" />
-      <Label fx:id="loginErrorLabel" alignment="CENTER" layoutX="140.0" layoutY="260.0" prefHeight="41.0" prefWidth="233.0" text="User ID or Password incorrect. &#10;Please try again." textAlignment="CENTER" textFill="#4300a1">
+      <Label fx:id="loginErrorLabel" alignment="CENTER" layoutX="160.0" layoutY="260.0" prefHeight="25.0" prefWidth="193.0" text="Username or Password incorrect." textAlignment="CENTER" textFill="#4300a1" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="212.0" layoutY="227.0" mnemonicParsing="false" onAction="#loginOnAction" prefHeight="25.0" prefWidth="89.0" text="Login">
+      <Button fx:id="loginButton" layoutX="212.0" layoutY="227.0" mnemonicParsing="false" onAction="#loginOnAction" prefHeight="25.0" prefWidth="89.0" text="Login">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

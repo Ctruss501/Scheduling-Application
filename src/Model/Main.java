@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+import java.util.Locale;
+
 /**
  * Main class is for the start of the Scheduling Application.
  */
@@ -27,6 +30,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 513, 323));
         primaryStage.show();
         Main.primaryStage.setResizable(false);
+
     }
 
     /**
@@ -37,6 +41,8 @@ public class Main extends Application {
 
         JDBC.openConnection();
 
+        //Used to test system default language set to French.
+        //Locale.setDefault(new Locale("fr"));
         launch(args);
 
         JDBC.closeConnection();
