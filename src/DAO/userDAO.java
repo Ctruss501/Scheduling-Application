@@ -12,7 +12,6 @@ import java.sql.SQLException;
  */
 public class userDAO {
 
-
     /**
      * Database query to return all users from users table.
      * @return Users observable list.
@@ -20,6 +19,7 @@ public class userDAO {
      * @throws Exception
      */
     public static ObservableList<User> getUsers() throws SQLException, Exception{
+
         ObservableList<User> users = FXCollections.observableArrayList();
         JDBC.openConnection();
         String q = "SELECT * FROM users";
@@ -45,6 +45,7 @@ public class userDAO {
      * @throws Exception
      */
     public static User getUserFromUsername(String username) throws SQLException, Exception{
+
         JDBC.openConnection();
         String q = "SELECT * FROM users WHERE User_Name = '" + username + "'";
         dbQuery.Query(q);

@@ -99,7 +99,7 @@ public class loginForm implements Initializable {
 
     public void loginOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
-       FileWriter fileWriter = new FileWriter("src/log_activity.txt", true);
+       FileWriter fileWriter = new FileWriter("src/login_activity.txt", true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm");
         JDBC.openConnection();
@@ -119,10 +119,13 @@ public class loginForm implements Initializable {
 
             Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1500, 600);
+            Scene scene = new Scene(root, 1450, 600);
             stage.setTitle("Scheduling Application - Main");
             stage.setScene(scene);
             stage.show();
+            stage.centerOnScreen();
+            stage.setResizable(false);
+
 
         }
 

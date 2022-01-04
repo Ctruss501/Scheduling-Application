@@ -1,5 +1,8 @@
 package Model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Appointments {
 
     private int apptID;
@@ -7,13 +10,25 @@ public class Appointments {
     private String apptDesc;
     private String apptLocation;
     private String apptType;
+    private Date start;
+    private Date end;
+    private int custID;
+    private int userID;
+    private int contactID;
 
-    public Appointments(int apptID, String apptTitle, String apptDesc, String apptLocation, String apptType){
+
+    public Appointments(int apptID, String apptTitle, String apptDesc, String apptLocation, String apptType,
+                Date start, Date end, int custID, int userID, int contactID){
         this.apptID = apptID;
         this.apptTitle = apptTitle;
         this.apptDesc = apptDesc;
         this.apptLocation = apptLocation;
         this.apptType = apptType;
+        this.start = start;
+        this.end = end;
+        this.custID = custID;
+        this. userID = userID;
+        this.contactID = contactID;
     }
 
     /**
@@ -104,5 +119,85 @@ public class Appointments {
     public void setApptType(String apptType) {
 
         this.apptType = apptType;
+    }
+
+    /**
+     *
+     * @return start
+     */
+    public Date getStart() {
+        return start;
+    }
+
+    /**
+     *
+     * @param start
+     */
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    /**
+     *
+     * @return end
+     */
+    public Date getEnd() {
+        return end;
+    }
+
+    /**
+     *
+     * @param end
+     */
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    /**
+     *
+     * @return custID
+     */
+    public int getCustID() {
+        return custID;
+    }
+
+    /**
+     *
+     * @param custID
+     */
+    public void setCustID(int custID) {
+        this.custID = custID;
+    }
+
+    /**
+     *
+     * @return userID
+     */
+    public int getUserID() {
+        return userID;
+    }
+
+    /**
+     *
+     * @param userID
+     */
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    /**
+     *
+     * @return contactID
+     */
+    public int getContactID() {
+        return contactID;
+    }
+
+    /**
+     *
+     * @param contactID
+     */
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
     }
 }

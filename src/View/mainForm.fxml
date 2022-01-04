@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainForm">
+<AnchorPane prefHeight="600.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainForm">
    <children>
-      <TableView layoutX="15.0" layoutY="125.0" prefHeight="350.0" prefWidth="1400.0">
+      <TableView layoutX="25.0" layoutY="125.0" prefHeight="350.0" prefWidth="1400.0">
         <columns>
           <TableColumn prefWidth="100.0" text="Appointment ID" />
           <TableColumn prefWidth="150.0" text="Title" />
