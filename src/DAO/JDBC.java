@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * JDBC class connects to the data base and opens/closes the connection.
@@ -18,7 +19,7 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
-    public static void openConnection()
+    public static Connection openConnection()
     {
         try {
             Class.forName(driver); // Locate Driver
@@ -29,6 +30,7 @@ public abstract class JDBC {
         {
             System.out.println("Error:" + e.getMessage());
         }
+        return null;
     }
 
     public static void closeConnection() {

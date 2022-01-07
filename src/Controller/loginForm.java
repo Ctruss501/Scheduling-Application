@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -101,7 +102,8 @@ public class loginForm implements Initializable {
 
        FileWriter fileWriter = new FileWriter("src/login_activity.txt", true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm");
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
         JDBC.openConnection();
         String username = usernameTextField.getText();
         String password = passwordPasswordField.getText();
@@ -114,7 +116,7 @@ public class loginForm implements Initializable {
             printWriter.println("Login Successful" + "  " +
                     "Username: " + usernameTextField.getText() + "  " +
                     "Password: " + passwordPasswordField.getText() + "  " +
-                    "Date/Time: " + dateTimeFormatter.format(LocalDateTime.now()) + "   ");
+                    "Date/Time: " + zonedDateTime.format(dateTimeFormatter) + "   ");
             printWriter.close();
 
             Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
