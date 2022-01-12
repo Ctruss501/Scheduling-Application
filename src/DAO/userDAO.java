@@ -4,6 +4,7 @@ import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,51 +16,59 @@ public class userDAO {
     /**
      * Database query to return all users from users table.
      * @return Users observable list.
-     * @throws SQLException
-     * @throws Exception
      */
-    public static ObservableList<User> getUsers() throws SQLException, Exception{
+    public static ObservableList<User> getUsers(){
 
         ObservableList<User> users = FXCollections.observableArrayList();
-        JDBC.openConnection();
-        String q = "SELECT * FROM users";
-        dbQuery.Query(q);
-        ResultSet resultSet = dbQuery.getResultSet();
 
-        while (resultSet.next()){
-            int userID = resultSet.getInt("User_ID");
-            String username = resultSet.getString("User_Name");
-            String password = resultSet.getString("Password");
-            User result = new User(userID, username, password);
-            users.add(result);
+        try {
+            JDBC.openConnection();
+            String q = "SELECT * FROM users";
+            dbQuery.Query(q);
+            ResultSet resultSet = dbQuery.getResultSet();
+
+            while (resultSet.next()) {
+                int userID = resultSet.getInt("User_ID");
+                String username = resultSet.getString("User_Name");
+                String password = resultSet.getString("Password");
+                User result = new User(userID, username, password);
+                users.add(result);
+            }
+            JDBC.closeConnection();
         }
-        JDBC.closeConnection();
+        catch (SQLException e){
+            e.printStackTrace();
+        }
         return users;
     }
 
     /**
      * Database query to return users by name from users table
-     * @param username
      * @return Users observable list.
-     * @throws SQLException
-     * @throws Exception
      */
-    public static User getUserFromUsername(String username) throws SQLException, Exception{
+    public static ObservableList<User> getUsersFromUsername(){
 
-        JDBC.openConnection();
-        String q = "SELECT * FROM users WHERE User_Name = '" + username + "'";
-        dbQuery.Query(q);
-        User result;
-        ResultSet resultSet = dbQuery.getResultSet();
+        ObservableList<User> users = FXCollections.observableArrayList();
 
-        while (resultSet.next()){
-            int userID = resultSet.getInt("User_ID");
-            String usernameA = resultSet.getString("User_Name");
-            String password = resultSet.getString("Password");
-            result = new User(userID, usernameA, password);
-            return result;
+        try {
+            JDBC.openConnection();
+            String q = "SELECT User_Name FROM users";
+            dbQuery.Query(q);
+            ResultSet resultSet = dbQuery.getResultSet();
+
+            while (resultSet.next()) {
+                //int userID = resultSet.getInt("User_ID");
+                String usernameA = resultSet.getString("User_Name");
+               //String password = resultSet.getString("Password");
+                User result = new User(usernameA);
+                users.add(result);
+            }
+            JDBC.closeConnection();
         }
-        JDBC.closeConnection();
-        return null;
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return users;
     }
+
 }

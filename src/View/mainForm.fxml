@@ -2,10 +2,51 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainForm">
    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="607.0" layoutX="-4.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1457.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.25" green="0.25" blue="0.25" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" layoutX="-5.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="1457.0">
+         <fill>
+            <RadialGradient centerX="0.488888888888889" centerY="0.5" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.32549020648002625" green="0.007843137718737125" blue="0.501960813999176" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007662835249042145">
+                     <color>
+                        <Color red="0.32549020648002625" green="0.007843137718737125" blue="0.501960813999176" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
        <TableView fx:id="apptTableView" layoutX="13.0" layoutY="125.0" prefHeight="350.0" prefWidth="1425.0">
            <columns>
                <TableColumn fx:id="apptIDColumn" prefWidth="97.0" text="Appointment ID" />
@@ -25,12 +66,20 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton fx:id="allRadioButton" layoutX="53.0" layoutY="53.0" mnemonicParsing="false" onAction="#allFilterOnAction" text="All" />
-      <RadioButton fx:id="weekRadioButton" layoutX="53.0" layoutY="76.0" mnemonicParsing="false" text="Week" />
-      <RadioButton fx:id="monthRadioButton" layoutX="53.0" layoutY="100.0" mnemonicParsing="false" text="Month" />
+      <RadioButton fx:id="allRadioButton" layoutX="53.0" layoutY="53.0" mnemonicParsing="false" onAction="#allFilterOnAction" selected="true" text="All">
+         <toggleGroup>
+            <ToggleGroup fx:id="appointmentFilterToggleGroup" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="weekRadioButton" layoutX="53.0" layoutY="76.0" mnemonicParsing="false" onAction="#weekFilterOnAction" text="Week" toggleGroup="$appointmentFilterToggleGroup" />
+      <RadioButton fx:id="monthRadioButton" layoutX="53.0" layoutY="100.0" mnemonicParsing="false" onAction="#monthFilterOnAction" text="Month" toggleGroup="$appointmentFilterToggleGroup" />
       <Button layoutX="143.0" layoutY="88.0" mnemonicParsing="false" onAction="#addApptOnAction" text="Add Appointment" />
       <Button layoutX="389.0" layoutY="88.0" mnemonicParsing="false" onAction="#deleteApptOnAction" text="Delete Appointment" />
       <Button layoutX="266.0" layoutY="88.0" mnemonicParsing="false" onAction="#editApptOnAction" text="Edit Appointment" />
       <Button fx:id="viewCustTable" layoutX="1335.0" layoutY="81.0" mnemonicParsing="false" onAction="#viewCustTableOnAction" text="View Customers" />
+      <Text fill="WHITE" layoutX="655.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

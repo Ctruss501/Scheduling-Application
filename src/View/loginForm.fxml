@@ -14,7 +14,7 @@
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.25" green="0.25" blue="0.25" />
+                        <Color red="0.250980406999588" green="0.250980406999588" blue="0.250980406999588" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
@@ -28,11 +28,16 @@
       </Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" stroke="BLACK" strokeType="INSIDE" width="513.0">
          <fill>
-            <RadialGradient centerX="0.5111111111111111" centerY="0.5428571428571428" focusAngle="-42.27">
+            <RadialGradient centerX="0.5111111111111111" centerY="0.5428571428571428" focusAngle="-42.27" radius="1.0">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.3274305462837219" green="0.0069444444961845875" blue="0.5" />
+                        <Color red="0.32549020648002625" green="0.007843137718737125" blue="0.501960813999176" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007662835249042145">
+                     <color>
+                        <Color red="0.32549020648002625" green="0.007843137718737125" blue="0.501960813999176" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">

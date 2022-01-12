@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.*;
@@ -12,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 public class appointmentsDAO {
 
-    public static ObservableList<Appointments> getAppointments() throws SQLException, Exception{
+    public static ObservableList<Appointments> getAppointments(){
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
         try {
@@ -50,13 +51,16 @@ public class appointmentsDAO {
         return appointments;
     }
 
-    public static Appointments getAppointmentsByWeek(String appointmentId) throws SQLException, Exception{
+    public static ObservableList<Appointments> getAppointmentsByWeek(){
+
+        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
 
         try {
             JDBC.openConnection();
-            String q = "SELECT * FROM appointments WHERE Appointment_ID = '" + appointmentId + "'" + "AND YEARWEEK(Week) = YEARWEEK(NOW))";
+            //String q = "SELECT * FROM appointments WHERE Appointment_ID = '" + appointmentId + "'" + "AND YEARWEEK(Week) = YEARWEEK(NOW))";
+            String q = "SELECT * FROM appointments WHERE YEARWEEK(Start) = YEARWEEK(NOW())";
             dbQuery.Query(q);
-            Appointments result;
+            //Appointments result;
             ResultSet resultSet = dbQuery.getResultSet();
             //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
 
@@ -74,26 +78,28 @@ public class appointmentsDAO {
                 int customerID = resultSet.getInt("Customer_ID");
                 int userID = resultSet.getInt("User_ID");
                 int contactID = resultSet.getInt("Contact_ID");
-                result = new Appointments(appointmentID, title, description,
+                Appointments result = new Appointments(appointmentID, title, description,
                         location, type, start, end, customerID, userID, contactID);
-                return result;
+                appointments.add(result);
             }
             JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return appointments;
     }
 
-    public static Appointments getAppointmentsByMonth(String appointmentId) throws SQLException, Exception{
+    public static ObservableList<Appointments> getAppointmentsByMonth(){
+
+        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
 
         try {
             JDBC.openConnection();
-            String q = "SELECT * FROM appointments WHERE Appointment_ID = '" + appointmentId + "'" + "AND YEAR(curdate()) = Year(Start)" +
+            String q = "SELECT * FROM appointments WHERE YEAR(curdate()) = Year(Start)" +
                     "AND MONTH(curdate()) = MONTH(Start)";
             dbQuery.Query(q);
-            Appointments result;
+            //Appointments result;
             ResultSet resultSet = dbQuery.getResultSet();
             //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
 
@@ -112,15 +118,15 @@ public class appointmentsDAO {
                 int customerID = resultSet.getInt("Customer_ID");
                 int userID = resultSet.getInt("User_ID");
                 int contactID = resultSet.getInt("Contact_ID");
-                result = new Appointments(appointmentID, title, description,
+                Appointments result = new Appointments(appointmentID, title, description,
                         location, type, start, end, customerID, userID, contactID);
-                return result;
+                appointments.add(result);
             }
             JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return appointments;
     }
 }

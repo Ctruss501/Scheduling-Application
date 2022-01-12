@@ -10,10 +10,13 @@ public class User {
     private String username;
     private String password;
 
-    public User(int userID, String username, String password){
+    public User(int userID, String username, String password) {
         this.userID = userID;
         this.username = username;
         this.password = password;
+    }
+    public User(String username){
+        this.username = username;
     }
 
     /**

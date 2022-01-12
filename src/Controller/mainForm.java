@@ -6,12 +6,14 @@ import Model.Appointments;
 import Model.User;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,8 +23,10 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+
 public class mainForm implements Initializable {
 
+    public ToggleGroup appointmentFilterToggleGroup;
     ObservableList<Appointments> appointmentsObservableList;
 
     public TableView<Appointments> apptTableView;
@@ -45,14 +49,14 @@ public class mainForm implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        allRadioButton.setSelected(true);
+        //allRadioButton.setSelected(true);
 
-        try {
-            apptTableView.setItems(appointmentsDAO.getAppointments());
-        }
-        catch (Exception e){
-            e.getMessage();
-        }
+        //try {
+        apptTableView.setItems(appointmentsDAO.getAppointments());
+        //}
+        //catch (Exception e){
+        //e.getMessage();
+        //}
 
         apptIDColumn.setCellValueFactory(new PropertyValueFactory<>("apptID"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("apptTitle"));
@@ -65,13 +69,21 @@ public class mainForm implements Initializable {
         custIDColumn.setCellValueFactory(new PropertyValueFactory<>("custID"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
-
     }
+
 
     public void viewCustTableOnAction(ActionEvent actionEvent) {
     }
 
-    public void addApptOnAction(ActionEvent actionEvent) {
+    public void addApptOnAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/addAppointment.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 740, 500);
+        stage.setTitle("Scheduling Application - Add Appointment");
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        stage.setResizable(false);
     }
 
     public void deleteApptOnAction(ActionEvent actionEvent) {
@@ -81,9 +93,18 @@ public class mainForm implements Initializable {
     }
 
     public void allFilterOnAction(ActionEvent actionEvent) throws Exception {
-        if(allRadioButton.isSelected()){
             appointmentsObservableList = appointmentsDAO.getAppointments();
             apptTableView.setItems(appointmentsObservableList);
-        }
+    }
+
+    public void weekFilterOnAction(ActionEvent actionEvent) throws Exception {
+        appointmentsObservableList = appointmentsDAO.getAppointmentsByWeek();
+        apptTableView.setItems(appointmentsObservableList);
+
+    }
+
+    public void monthFilterOnAction(ActionEvent actionEvent) throws Exception {
+            appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
+            apptTableView.setItems(appointmentsObservableList);
     }
 }
