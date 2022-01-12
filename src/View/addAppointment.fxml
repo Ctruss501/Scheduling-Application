@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.addAppointment">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="BLACK" strokeType="INSIDE" width="740.0">
+         <fill>
+            <RadialGradient centerX="0.4611111111111111" centerY="1.0" focusAngle="-93.09" focusDistance="-1.0" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.25" green="0.25" blue="0.25" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="97.0" stroke="BLACK" strokeType="INSIDE" width="740.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.32549020648002625" green="0.007843137718737125" blue="0.501960813999176" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Label layoutX="32.0" layoutY="125.0" text="Appointment ID" />
+      <Label layoutX="287.0" layoutY="125.0" prefHeight="17.0" prefWidth="31.0" text="Title" />
+      <Label layoutX="287.0" layoutY="233.0" text="Description" />
+      <Label layoutX="32.0" layoutY="178.0" text="Location" />
+      <Label layoutX="534.0" layoutY="125.0" prefHeight="17.0" prefWidth="46.0" text="Contact" />
+      <Label layoutX="287.0" layoutY="178.0" prefHeight="17.0" prefWidth="31.0" text="Type" />
+      <Label layoutX="32.0" layoutY="294.0" prefHeight="17.0" prefWidth="61.0" text="Start Date" />
+      <Label layoutX="287.0" layoutY="294.0" prefHeight="17.0" prefWidth="61.0" text="End Time" />
+      <Label layoutX="32.0" layoutY="233.0" prefHeight="17.0" prefWidth="72.0" text="Customer" />
+      <Label layoutX="531.0" layoutY="178.0" prefHeight="17.0" prefWidth="52.0" text="User" />
+      <TextField fx:id="apptIDTextField" editable="false" layoutX="126.0" layoutY="121.0" prefHeight="25.0" prefWidth="109.0" promptText="Auto Generated" />
+      <TextField fx:id="titleTextField" layoutX="331.0" layoutY="121.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="typeTextField" layoutX="331.0" layoutY="174.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="locationTextField" layoutX="86.0" layoutY="174.0" prefHeight="25.0" prefWidth="150.0" />
+      <DatePicker fx:id="startDatePicker" layoutX="106.0" layoutY="290.0" prefHeight="17.0" prefWidth="127.0" />
+      <ComboBox fx:id="custCombo" layoutX="104.0" layoutY="229.0" prefHeight="25.0" prefWidth="130.0" />
+      <ComboBox fx:id="startTimeCombo" layoutX="106.0" layoutY="326.0" prefHeight="25.0" prefWidth="127.0" />
+      <ComboBox fx:id="endTimeCombo" layoutX="357.0" layoutY="290.0" prefHeight="25.0" prefWidth="127.0" />
+      <Label layoutX="60.0" layoutY="330.0" text="Time" />
+      <ComboBox fx:id="contactCombo" layoutX="583.0" layoutY="121.0" prefHeight="25.0" prefWidth="128.0" />
+      <ComboBox fx:id="userCombo" layoutX="583.0" layoutY="174.0" prefHeight="25.0" prefWidth="128.0" />
+      <TextField fx:id="descTextField" layoutX="357.0" layoutY="229.0" prefHeight="25.0" prefWidth="356.0" />
+      <Text fill="WHITE" layoutX="268.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Appointment">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <Button layoutX="508.0" layoutY="451.0" mnemonicParsing="false" onAction="#saveOnAction" prefHeight="25.0" prefWidth="52.0" text="Save" />
+      <Button layoutX="621.0" layoutY="451.0" mnemonicParsing="false" onAction="#cancelOnAction" text="Cancel" />
+   </children>
+</AnchorPane>
