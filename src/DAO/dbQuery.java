@@ -1,8 +1,11 @@
 package DAO;
 
+import javax.sql.rowset.CachedRowSet;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import static DAO.JDBC.connection;
+import DAO.JDBC;
 
 public class dbQuery {
 
@@ -28,5 +31,28 @@ public class dbQuery {
 
     public static ResultSet getResultSet() {
         return resultSet;
+    }
+
+    /**
+     * For inserting, updating, and deleting
+     * @param execute
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public static void executeUpdate(String execute) throws SQLException, ClassNotFoundException{
+        try {
+            JDBC.openConnection();
+            statement = connection.createStatement();
+            statement.executeUpdate(execute);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            if(statement != null){
+                statement.close();
+            }
+            JDBC.closeConnection();
+        }
     }
 }

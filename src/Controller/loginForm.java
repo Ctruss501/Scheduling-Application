@@ -127,8 +127,6 @@ public class loginForm implements Initializable {
             stage.show();
             stage.centerOnScreen();
             stage.setResizable(false);
-
-
         }
 
         else {

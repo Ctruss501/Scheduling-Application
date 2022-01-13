@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.customerView">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="400.0" stroke="BLACK" strokeType="INSIDE" width="752.0">
+         <fill>
+            <RadialGradient centerX="0.5055555555555555" centerY="0.5" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.25" green="0.25" blue="0.25" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="60.0" stroke="BLACK" strokeType="INSIDE" width="752.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.32549020648002625" green="0.007843137718737125" blue="0.501960813999176" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <TableView fx:id="customerTableView" layoutX="16.0" layoutY="100.0" prefHeight="200.0" prefWidth="720.0">
+        <columns>
+          <TableColumn fx:id="custIDColumn" prefWidth="93.0" text="Customer ID" />
+          <TableColumn fx:id="custNameColumn" prefWidth="133.0" text="Name" />
+            <TableColumn fx:id="custAddressColumn" prefWidth="141.0" text="Address" />
+            <TableColumn fx:id="custDivisionColumn" prefWidth="127.0" text="Division" />
+            <TableColumn fx:id="custPostalColumn" prefWidth="96.0" text="Postal Code" />
+            <TableColumn fx:id="custPhoneColumn" prefWidth="129.0" text="Phone" />
+        </columns>
+      </TableView>
+      <Button layoutX="510.0" layoutY="342.0" mnemonicParsing="false" onAction="#addOnAction" prefHeight="25.0" prefWidth="51.0" text="Add" />
+      <Button layoutX="590.0" layoutY="342.0" mnemonicParsing="false" onAction="#editOnAction" prefHeight="25.0" prefWidth="51.0" text="Edit" />
+      <Button layoutX="670.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteOnAction" text="Delete" />
+      <Text fill="WHITE" layoutX="316.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <Button layoutX="25.0" layoutY="342.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="25.0" prefWidth="51.0" text="Back" />
+   </children>
+</AnchorPane>

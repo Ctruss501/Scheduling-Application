@@ -65,3 +65,5 @@ Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:18:42
 Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:19:01 PM EST   
 Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:23:57 PM EST   
 Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:37:51 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/12/2022 09:18:29 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/12/2022 09:23:07 PM EST   

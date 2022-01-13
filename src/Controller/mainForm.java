@@ -72,7 +72,15 @@ public class mainForm implements Initializable {
     }
 
 
-    public void viewCustTableOnAction(ActionEvent actionEvent) {
+    public void viewCustTableOnAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 752, 400);
+        stage.setTitle("Scheduling Application - Customers");
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        stage.setResizable(false);
     }
 
     public void addApptOnAction(ActionEvent actionEvent) throws IOException {
@@ -106,5 +114,9 @@ public class mainForm implements Initializable {
     public void monthFilterOnAction(ActionEvent actionEvent) throws Exception {
             appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
             apptTableView.setItems(appointmentsObservableList);
+    }
+
+    public void exitOnAction(ActionEvent actionEvent) {
+            System.exit(0);
     }
 }

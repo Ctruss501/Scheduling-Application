@@ -7,13 +7,15 @@ public class Customers {
     private String custAddress;
     private String custPostalCode;
     private String custPhoneNum;
+    private int divID;
 
-    public Customers(int custID, String custName, String custAddress, String custPostalCode, String custPhoneNum){
+    public Customers(int custID, String custName, String custAddress, String custPostalCode, String custPhoneNum, int divID){
         this.custID = custID;
         this.custName = custName;
         this.custAddress = custAddress;
         this.custPostalCode = custPostalCode;
         this.custPhoneNum = custPhoneNum;
+        this.divID = divID;
     }
 
     /**
@@ -94,5 +96,21 @@ public class Customers {
      */
     public void setCustPhoneNum(String custPhoneNum) {
         this.custPhoneNum = custPhoneNum;
+    }
+
+    /**
+     *
+     * @return divID
+     */
+    public int getDivID() {
+        return divID;
+    }
+
+    /**
+     *
+     * @param divID
+     */
+    public void setDivID(int divID) {
+        this.divID = divID;
     }
 }

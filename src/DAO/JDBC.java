@@ -1,8 +1,7 @@
 package DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.sql.rowset.CachedRowSet;
+import java.sql.*;
 
 /**
  * JDBC class connects to the data base and opens/closes the connection.
