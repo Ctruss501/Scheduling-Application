@@ -4,10 +4,12 @@ public class Divisions {
 
     private int divID;
     private String divDivision;
+    private int countryID;
 
-    public Divisions(int divID, String divDivision){
+    public Divisions(int divID, String divDivision, int countryID){
         this.divID = divID;
         this.divDivision = divDivision;
+        this.countryID = countryID;
     }
 
     /**
@@ -40,5 +42,21 @@ public class Divisions {
      */
     public void setDivDivision(String divDivision) {
         this.divDivision = divDivision;
+    }
+
+    /**
+     *
+     * @return countryID
+     */
+    public int getCountryID() {
+        return countryID;
+    }
+
+    /**
+     *
+     * @param countryID
+     */
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
     }
 }

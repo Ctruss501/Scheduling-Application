@@ -49,14 +49,7 @@ public class mainForm implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //allRadioButton.setSelected(true);
-
-        //try {
         apptTableView.setItems(appointmentsDAO.getAppointments());
-        //}
-        //catch (Exception e){
-        //e.getMessage();
-        //}
 
         apptIDColumn.setCellValueFactory(new PropertyValueFactory<>("apptID"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("apptTitle"));
@@ -94,26 +87,39 @@ public class mainForm implements Initializable {
         stage.setResizable(false);
     }
 
+    public void editApptOnAction(ActionEvent actionEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("../view/editAppointment.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 740, 500);
+        stage.setTitle("Scheduling Application - Add Appointment");
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        stage.setResizable(false);
+    }
+
     public void deleteApptOnAction(ActionEvent actionEvent) {
     }
 
-    public void editApptOnAction(ActionEvent actionEvent) {
+    public void allFilterOnAction(ActionEvent actionEvent){
+
+        appointmentsObservableList = appointmentsDAO.getAppointments();
+        apptTableView.setItems(appointmentsObservableList);
     }
 
-    public void allFilterOnAction(ActionEvent actionEvent) throws Exception {
-            appointmentsObservableList = appointmentsDAO.getAppointments();
-            apptTableView.setItems(appointmentsObservableList);
-    }
+    public void weekFilterOnAction(ActionEvent actionEvent){
 
-    public void weekFilterOnAction(ActionEvent actionEvent) throws Exception {
         appointmentsObservableList = appointmentsDAO.getAppointmentsByWeek();
         apptTableView.setItems(appointmentsObservableList);
 
+
     }
 
-    public void monthFilterOnAction(ActionEvent actionEvent) throws Exception {
-            appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
-            apptTableView.setItems(appointmentsObservableList);
+    public void monthFilterOnAction(ActionEvent actionEvent){
+
+        appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
+        apptTableView.setItems(appointmentsObservableList);
     }
 
     public void exitOnAction(ActionEvent actionEvent) {

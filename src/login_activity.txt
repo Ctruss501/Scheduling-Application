@@ -1,62 +1,4 @@
-Login Successful/tUsername: test/tPassword: test/tDate/Time: 07/02/2022 08:07/t
-Login Successful/tUsername: test/tPassword: pass/tDate/Time: 13/02/2022 08:13/t
-Login Successful     Username: test     Password: 1     Date/Time: 16/02/2022 08:16     
-Login Unsuccessful     Username: Hi     Password: Hi     Date/Time: 01/02/2022 20:20     
-Login Unsuccessful     Username: test     Password: test     Date/Time: 01/02/2022 20:21     
-Login Unsuccessful     Username:      Password:      Date/Time: 01/02/2022 20:23     
-Login Unsuccessful     Username:      Password:      Date/Time: 01/02/2022 20:28     
-Login Unsuccessful     Username: hello     Password: hi     Date/Time: 01/02/2022 20:28     
-Login Successful     Username: test     Password: test     Date/Time: 01/02/2022 20:28     
-Login Unsuccessful    Username: corey  Password: corey  Date/Time: 01/03/2022 18:53   
-Login Successful  Username: test  Password: test  Date/Time: 01/03/2022 18:53   
-Login Successful  Username: test  Password: test  Date/Time: 01/03/2022 18:58   
-Login Successful  Username: test  Password: test  Date/Time: 01/03/2022 19:00   
-Login Successful  Username: test  Password: test  Date/Time: 01/05/2022 22:45   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 19:58   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 20:08   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 08:41:01 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 08:51:16 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 09:09:44 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 09:10:59 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 09:16:50 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 09:17:37 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 09:21:53 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 09:45:09 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 09:49:22 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 10:02:10 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 10:03:20 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 10:23:30 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 10:34:52 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/06/2022 10:40:19 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:31:55 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:34:04 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:35:00 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:45:32 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:49:15 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:49:44 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:51:12 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 12:53:08 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 01:04:46 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 01:07:40 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 01:09:58 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 01:13:31 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 01:14:53 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 09:13:03 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 09:13:55 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 09:39:45 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/09/2022 09:52:44 AM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:25:40 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:31:07 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:37:45 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:39:32 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:41:52 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:43:43 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:44:05 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 08:44:45 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:04:19 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:08:35 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:09:35 PM EST   
-Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:11:25 PM EST   
+
 Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:12:02 PM EST   
 Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:15:18 PM EST   
 Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:16:55 PM EST   
@@ -67,3 +9,10 @@ Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:23:57
 Login Successful  Username: test  Password: test  Date/Time: 01/11/2022 09:37:51 PM EST   
 Login Successful  Username: test  Password: test  Date/Time: 01/12/2022 09:18:29 PM EST   
 Login Successful  Username: test  Password: test  Date/Time: 01/12/2022 09:23:07 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/12/2022 09:46:57 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/12/2022 09:49:00 PM EST
+Login Successful  Username: test  Password: test  Date/Time: 01/13/2022 08:37:42 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/13/2022 08:52:44 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/13/2022 08:54:55 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/13/2022 08:57:06 PM EST   
+Login Successful  Username: test  Password: test  Date/Time: 01/13/2022 08:59:28 PM EST   

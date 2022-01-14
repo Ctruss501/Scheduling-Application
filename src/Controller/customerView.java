@@ -44,13 +44,28 @@ public class customerView implements Initializable {
         custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("custPhoneNum"));
     }
 
-    public void addOnAction(ActionEvent actionEvent) {
+    public void addOnAction(ActionEvent actionEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("../view/addCustomer.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 600, 400);
+        stage.setTitle("Scheduling Application - Main");
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        stage.setResizable(false);
     }
 
-    public void editOnAction(ActionEvent actionEvent) {
-    }
+    public void editOnAction(ActionEvent actionEvent) throws IOException {
 
-    public void deleteOnAction(ActionEvent actionEvent) {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/editCustomer.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 600, 400);
+        stage.setTitle("Scheduling Application - Main");
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+        stage.setResizable(false);
     }
 
     public void backOnAction(ActionEvent actionEvent) throws IOException {
@@ -62,5 +77,8 @@ public class customerView implements Initializable {
         stage.show();
         stage.centerOnScreen();
         stage.setResizable(false);
+    }
+
+    public void deleteOnAction(ActionEvent actionEvent) {
     }
 }

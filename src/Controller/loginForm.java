@@ -134,7 +134,7 @@ public class loginForm implements Initializable {
             printWriter.println("Login Unsuccessful" + "    " +
                     "Username: " + usernameTextField.getText() + "  " +
                     "Password: " + passwordPasswordField.getText() + "  " +
-                    "Date/Time: " + dateTimeFormatter.format(LocalDateTime.now()) + "   ");
+                    "Date/Time: " + zonedDateTime.format(dateTimeFormatter) + "   ");
             printWriter.close();
             loginErrorLabel.setVisible(true);
         }
