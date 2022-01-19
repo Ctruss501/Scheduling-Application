@@ -26,8 +26,8 @@ public class countryDAO {
         ResultSet resultSet = dbQuery.getResultSet();
 
         while (resultSet.next()){
-            int countryID = resultSet.getInt("Country_ID");
-            String countryName = resultSet.getString("Country");
+            int countryID = resultSet.getInt("countryID");
+            String countryName = resultSet.getString("countryName");
             Countries result = new Countries(countryID, countryName);
             countries.add(result);
         }

@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.*;
+import Model.Appointments;
 import Model.Contacts;
 import Model.Customers;
 import Model.User;
@@ -19,7 +20,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ResourceBundle;
 
 public class addAppointment implements Initializable {
@@ -35,13 +42,27 @@ public class addAppointment implements Initializable {
     public ComboBox<User> userCombo;
     public TextField descTextField;
 
+    public static ObservableList<String> time(){
+
+        ObservableList<String> timeOL = FXCollections.observableArrayList();
+
+        LocalTime start = LocalTime.of(8, 0);
+        LocalTime end = LocalTime.of(22,0);
+        while(start.isBefore(end.plusSeconds(1))){
+            timeOL.add(String.valueOf(start));
+            start = start.plusMinutes(15);
+        }
+        return timeOL;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         userCombo.setItems(userDAO.getUsersFromUsername());
         custCombo.setItems(customersDAO.getCustomers());
         contactCombo.setItems(contactsDAO.getContacts());
-
+        startTimeCombo.setItems(time());
+        endTimeCombo.setItems(time());
     }
 
     public void saveOnAction(ActionEvent actionEvent) throws IOException {

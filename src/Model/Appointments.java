@@ -1,6 +1,11 @@
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
@@ -13,6 +18,9 @@ public class Appointments {
     private String apptType;
     private LocalDateTime start;
     private LocalDateTime end;
+    //private LocalTime startTime;
+    //private LocalTime endTime;
+    //private LocalDate apptDate;  resultSet.getDate(Start).toLocalDate()
     private int custID;
     private int userID;
     private int contactID;
@@ -201,4 +209,5 @@ public class Appointments {
     public void setContactID(int contactID) {
         this.contactID = contactID;
     }
+
 }

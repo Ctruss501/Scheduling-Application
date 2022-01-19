@@ -113,4 +113,9 @@ public class Customers {
     public void setDivID(int divID) {
         this.divID = divID;
     }
+
+    @Override
+    public String toString(){
+        return (custName);
+    }
 }

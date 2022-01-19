@@ -59,4 +59,9 @@ public class Contacts {
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
     }
+
+    @Override
+    public String toString(){
+        return (contactName);
+    }
 }

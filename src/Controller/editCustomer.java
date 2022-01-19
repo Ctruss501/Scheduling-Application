@@ -36,10 +36,10 @@ public class editCustomer implements Initializable {
 
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1450, 600);
-        stage.setTitle("Scheduling Application - Main");
+        Scene scene = new Scene(root, 752, 400);
+        stage.setTitle("Scheduling Application - Customers");
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();

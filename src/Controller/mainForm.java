@@ -49,18 +49,19 @@ public class mainForm implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        apptTableView.setItems(appointmentsDAO.getAppointments());
+            apptTableView.setItems(appointmentsDAO.getAppointments());
 
-        apptIDColumn.setCellValueFactory(new PropertyValueFactory<>("apptID"));
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("apptTitle"));
-        descColumn.setCellValueFactory(new PropertyValueFactory<>("apptDesc"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("apptLocation"));
-        contactColumn.setCellValueFactory(new PropertyValueFactory<>("contactID"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("apptType"));
-        startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
-        custIDColumn.setCellValueFactory(new PropertyValueFactory<>("custID"));
-        userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            apptIDColumn.setCellValueFactory(new PropertyValueFactory<>("apptID"));
+            titleColumn.setCellValueFactory(new PropertyValueFactory<>("apptTitle"));
+            descColumn.setCellValueFactory(new PropertyValueFactory<>("apptDesc"));
+            locationColumn.setCellValueFactory(new PropertyValueFactory<>("apptLocation"));
+            contactColumn.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+            typeColumn.setCellValueFactory(new PropertyValueFactory<>("apptType"));
+            //dateColumn.setCellValueFactory(new PropertyValueFactory<>("apptDate"))
+            startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
+            endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
+            custIDColumn.setCellValueFactory(new PropertyValueFactory<>("custID"));
+            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
     }
 
@@ -92,7 +93,7 @@ public class mainForm implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("../view/editAppointment.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 740, 500);
-        stage.setTitle("Scheduling Application - Add Appointment");
+        stage.setTitle("Scheduling Application - Edit Appointment");
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();
@@ -104,22 +105,21 @@ public class mainForm implements Initializable {
 
     public void allFilterOnAction(ActionEvent actionEvent){
 
-        appointmentsObservableList = appointmentsDAO.getAppointments();
-        apptTableView.setItems(appointmentsObservableList);
+            appointmentsObservableList = appointmentsDAO.getAppointments();
+            apptTableView.setItems(appointmentsObservableList);
+
     }
 
     public void weekFilterOnAction(ActionEvent actionEvent){
 
-        appointmentsObservableList = appointmentsDAO.getAppointmentsByWeek();
-        apptTableView.setItems(appointmentsObservableList);
-
-
+            appointmentsObservableList = appointmentsDAO.getAppointmentsByWeek();
+            apptTableView.setItems(appointmentsObservableList);
     }
 
     public void monthFilterOnAction(ActionEvent actionEvent){
 
-        appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
-        apptTableView.setItems(appointmentsObservableList);
+            appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
+            apptTableView.setItems(appointmentsObservableList);
     }
 
     public void exitOnAction(ActionEvent actionEvent) {

@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -42,6 +43,8 @@ public class customerView implements Initializable {
         custDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("divID"));
         custPostalColumn.setCellValueFactory(new PropertyValueFactory<>("custPostalCode"));
         custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("custPhoneNum"));
+
+
     }
 
     public void addOnAction(ActionEvent actionEvent) throws IOException {
@@ -49,7 +52,7 @@ public class customerView implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("../view/addCustomer.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 600, 400);
-        stage.setTitle("Scheduling Application - Main");
+        stage.setTitle("Scheduling Application - Add Customer");
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();
@@ -61,7 +64,7 @@ public class customerView implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("../view/editCustomer.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 600, 400);
-        stage.setTitle("Scheduling Application - Main");
+        stage.setTitle("Scheduling Application - Edit Customer");
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();

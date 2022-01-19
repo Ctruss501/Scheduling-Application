@@ -55,7 +55,7 @@
       <Label layoutX="50.0" layoutY="230.0" text="Phone" />
       <Label layoutX="293.0" layoutY="230.0" text="Division" />
       <Label layoutX="293.0" layoutY="170.0" text="Postal Code" />
-      <TextField fx:id="custIDTextField" disable="true" layoutX="99.0" layoutY="106.0" promptText="Auto Generated" />
+      <TextField fx:id="custIDTextField" disable="true" layoutX="99.0" layoutY="106.0" promptText="&lt;NEW&gt;" />
       <TextField fx:id="nameTextField" layoutX="99.0" layoutY="166.0" />
       <TextField fx:id="phoneTextField" layoutX="99.0" layoutY="226.0" />
       <TextField fx:id="addressTextField" layoutX="366.0" layoutY="106.0" prefHeight="25.0" prefWidth="199.0" />

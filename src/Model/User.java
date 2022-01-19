@@ -72,4 +72,13 @@ public class User {
 
         this.password = password;
     }
+
+    /**
+     * Setting Override method to display the username for combo boxes.
+     * @return username
+     */
+    @Override
+    public String toString(){
+        return (username);
+    }
 }

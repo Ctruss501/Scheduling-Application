@@ -1,9 +1,8 @@
 package DAO;
 
 import javax.sql.rowset.CachedRowSet;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 import static DAO.JDBC.connection;
 import DAO.JDBC;
 
@@ -12,6 +11,7 @@ public class dbQuery {
     private static String sqlQuery;
     private static Statement statement;
     private static ResultSet resultSet;
+    private static PreparedStatement preparedStatement;
 
     public static void Query(String query) {
         sqlQuery = query;
@@ -54,5 +54,14 @@ public class dbQuery {
             }
             JDBC.closeConnection();
         }
+    }
+
+    public static void setPreparedStatement(Connection connection, String sqlStatement) throws SQLException{
+
+        preparedStatement = connection.prepareStatement(sqlStatement);
+    }
+
+    public static PreparedStatement getPreparedStatement(){
+        return preparedStatement;
     }
 }
