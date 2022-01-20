@@ -1,6 +1,8 @@
 package Controller;
 
+import DAO.countryDAO;
 import DAO.divisionsDAO;
+import Model.Countries;
 import Model.Divisions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -23,11 +25,13 @@ public class editCustomer implements Initializable {
     public TextField addressTextField;
     public TextField postalTextField;
     public ComboBox<Divisions> divisionCombo;
+    public ComboBox<Countries> countryCombo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         divisionCombo.setItems(divisionsDAO.getDivisions());
+        countryCombo.setItems((countryDAO.getCountries()));
 
     }
 

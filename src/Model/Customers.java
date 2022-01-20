@@ -7,14 +7,17 @@ public class Customers {
     private String custAddress;
     private String custPostalCode;
     private String custPhoneNum;
-    private int divID;
+    private String countryID;
+    private String divID;
 
-    public Customers(int custID, String custName, String custAddress, String custPostalCode, String custPhoneNum, int divID){
+
+    public Customers(int custID, String custName, String custAddress, String custPostalCode, String custPhoneNum, String countryID, String divID){
         this.custID = custID;
         this.custName = custName;
         this.custAddress = custAddress;
         this.custPostalCode = custPostalCode;
         this.custPhoneNum = custPhoneNum;
+        this.countryID = countryID;
         this.divID = divID;
     }
 
@@ -102,7 +105,7 @@ public class Customers {
      *
      * @return divID
      */
-    public int getDivID() {
+    public String getDivID() {
         return divID;
     }
 
@@ -110,12 +113,22 @@ public class Customers {
      *
      * @param divID
      */
-    public void setDivID(int divID) {
+    public void setDivID(String divID) {
         this.divID = divID;
     }
+
+    public String getCountryID() {
+        return countryID;
+    }
+
+    public void setCountryID(String countryID) {
+        this.countryID = countryID;
+    }
+
 
     @Override
     public String toString(){
         return (custName);
     }
+
 }

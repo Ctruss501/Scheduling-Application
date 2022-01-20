@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.addCustomer">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.addCustomer">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0">
          <fill>
@@ -68,5 +68,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Text>
+      <Label layoutX="293.0" layoutY="290.0" text="Country" />
+      <ComboBox fx:id="countryCombo" layoutX="368.0" layoutY="286.0" prefHeight="25.0" prefWidth="199.0" />
    </children>
 </AnchorPane>

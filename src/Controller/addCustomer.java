@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.JDBC;
+import DAO.countryDAO;
 import DAO.customersDAO;
 import DAO.divisionsDAO;
 import Model.Customers;
@@ -28,15 +29,17 @@ public class addCustomer implements Initializable {
     public TextField addressTextField;
     public TextField postalTextField;
     public ComboBox<Divisions> divisionCombo;
+    public ComboBox countryCombo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         divisionCombo.setItems(divisionsDAO.getDivisions());
+        countryCombo.setItems((countryDAO.getCountries()));
     }
 
     public void saveOnAction(ActionEvent actionEvent) throws SQLException {
-        JDBC.openConnection();
+        /*JDBC.openConnection();
         int id = 0;
         for(int i = 0; i < customersDAO.getCustomers().size(); i++) {
             if (id <= customersDAO.getCustomers().get(i).getCustID())
@@ -61,7 +64,7 @@ public class addCustomer implements Initializable {
         }
         catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
 
     }
 

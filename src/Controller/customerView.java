@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.countryDAO;
+import Model.Countries;
 import Model.Customers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +33,7 @@ public class customerView implements Initializable {
     public TableColumn<Customers, Integer> custDivisionColumn;
     public TableColumn<Customers, String> custPostalColumn;
     public TableColumn<Customers, String> custPhoneColumn;
+    public TableColumn<Customers, String> custCountryColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,6 +45,7 @@ public class customerView implements Initializable {
         custAddressColumn.setCellValueFactory(new PropertyValueFactory<>("custAddress"));
         custDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("divID"));
         custPostalColumn.setCellValueFactory(new PropertyValueFactory<>("custPostalCode"));
+        custCountryColumn.setCellValueFactory(new PropertyValueFactory<>("countryID"));
         custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("custPhoneNum"));
 
 

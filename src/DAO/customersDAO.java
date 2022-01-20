@@ -14,7 +14,7 @@ public class customersDAO {
 
         try {
             JDBC.openConnection();
-            String q = "SELECT * FROM customers";
+            String q = "SELECT * FROM customers, first_level_divisions, countries WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.Country_ID = countries.Country_ID";
             dbQuery.Query(q);
             ResultSet resultSet = dbQuery.getResultSet();
 
@@ -23,9 +23,10 @@ public class customersDAO {
                 String custName = resultSet.getString("Customer_Name");
                 String custAddress = resultSet.getString("Address");
                 String custPostal = resultSet.getString("Postal_Code");
+                String countryID = resultSet.getString(19);
                 String custPhone = resultSet.getString("Phone");
-                int divID = resultSet.getInt("Division_ID");
-                Customers result = new Customers(custID, custName, custAddress, custPostal, custPhone, divID);
+                String divID = resultSet.getString(12);
+                Customers result = new Customers(custID, custName, custAddress, custPostal, custPhone, countryID, divID);
                 customers.add(result);
             }
         }
