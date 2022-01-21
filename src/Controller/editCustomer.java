@@ -4,6 +4,8 @@ import DAO.countryDAO;
 import DAO.divisionsDAO;
 import Model.Countries;
 import Model.Divisions;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,9 +32,25 @@ public class editCustomer implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        divisionCombo.setItems(divisionsDAO.getDivisions());
         countryCombo.setItems((countryDAO.getCountries()));
+        countryCombo.valueProperty().addListener((obs, oldValue, newValue)->{
+            if(newValue == null){
+                divisionCombo.getItems().clear();
+                divisionCombo.setDisable(true);
+            }
+            else{
+                ObservableList<Divisions> divisions = filterDivisions(newValue);
+                divisionCombo.getItems().setAll(divisions);
+                divisionCombo.setDisable(false);
+            }
+        });
 
+    }
+
+    public ObservableList<Divisions> filterDivisions(Countries newValue) {
+
+        ObservableList<Divisions> divisions = divisionsDAO.getDivisions();
+        return new FilteredList<>(divisions, i -> i.getCountryID() == countryCombo.getSelectionModel().getSelectedItem().getCountryID());
     }
 
     public void saveOnAction(ActionEvent actionEvent) {

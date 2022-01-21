@@ -1,18 +1,17 @@
 package Controller;
 
-import DAO.JDBC;
 import DAO.countryDAO;
-import DAO.customersDAO;
 import DAO.divisionsDAO;
-import Model.Customers;
+import Model.Countries;
 import Model.Divisions;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -29,13 +28,30 @@ public class addCustomer implements Initializable {
     public TextField addressTextField;
     public TextField postalTextField;
     public ComboBox<Divisions> divisionCombo;
-    public ComboBox countryCombo;
+    public ComboBox<Countries> countryCombo;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        divisionCombo.setItems(divisionsDAO.getDivisions());
         countryCombo.setItems((countryDAO.getCountries()));
+        countryCombo.valueProperty().addListener((obs, oldValue, newValue)->{
+            if(newValue == null){
+                divisionCombo.getItems().clear();
+                divisionCombo.setDisable(true);
+            }
+            else{
+                ObservableList<Divisions> divisions = filterDivisions(newValue);
+                divisionCombo.getItems().setAll(divisions);
+                divisionCombo.setDisable(false);
+            }
+        });
+    }
+
+    public ObservableList<Divisions> filterDivisions(Countries newValue) {
+
+        ObservableList<Divisions> divisions = divisionsDAO.getDivisions();
+        return new FilteredList<>(divisions, i -> i.getCountryID() == countryCombo.getSelectionModel().getSelectedItem().getCountryID());
     }
 
     public void saveOnAction(ActionEvent actionEvent) throws SQLException {
