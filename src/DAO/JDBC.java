@@ -30,7 +30,7 @@ public abstract class JDBC {
             e.getMessage();
             System.out.println("Error:" + e.getMessage());
         }
-        return null;
+        return connection;
     }
 
     public static void closeConnection() {

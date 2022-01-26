@@ -1,27 +1,19 @@
 package Controller;
 
-import DAO.countryDAO;
-import Model.Countries;
 import Model.Customers;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import DAO.customersDAO;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class customerView implements Initializable {
@@ -34,6 +26,7 @@ public class customerView implements Initializable {
     public TableColumn<Customers, String> custPostalColumn;
     public TableColumn<Customers, String> custPhoneColumn;
     public TableColumn<Customers, String> custCountryColumn;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,14 +58,20 @@ public class customerView implements Initializable {
 
     public void editOnAction(ActionEvent actionEvent) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("../view/editCustomer.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 600, 400);
-        stage.setTitle("Scheduling Application - Edit Customer");
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
-        stage.setResizable(false);
+        Customers selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+        if(selectedCustomer != null) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("../view/editCustomer.fxml"));
+            Parent scene = fxmlLoader.load();
+            editCustomer editCustomerController = fxmlLoader.getController();
+            editCustomerController.getCustomer(selectedCustomer);
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(scene, 600, 400));
+            stage.setTitle("Scheduling Application - Edit Customer");
+            stage.show();
+            stage.centerOnScreen();
+            stage.setResizable(false);
+        }
     }
 
     public void backOnAction(ActionEvent actionEvent) throws IOException {

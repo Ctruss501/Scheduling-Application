@@ -117,17 +117,27 @@ public class Customers {
         this.divID = divID;
     }
 
+    /**
+     *
+     * @return countryID
+     */
     public String getCountryID() {
         return countryID;
     }
 
+    /**
+     *
+     * @param countryID
+     */
     public void setCountryID(String countryID) {
+
         this.countryID = countryID;
     }
 
 
     @Override
     public String toString(){
+
         return (custName);
     }
 

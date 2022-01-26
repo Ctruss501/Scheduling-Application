@@ -73,22 +73,30 @@ public class customersDAO {
         return insertCust;
     }
 
-    public static int editCustomer(Customers customer) throws SQLException{
+    public static void editCustomer(int custID, String custName, String custAddress, String custPostal, String custPhone, String countryName, int divDivision) throws SQLException{
 
-        Connection connection = JDBC.openConnection();
-        String q = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ? WHERE Customer_ID)";
-        dbQuery.setPreparedStatement(connection, q);
-        PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
+        try {
 
-        preparedStatement.setString(1, customer.getCustName());
-        preparedStatement.setString(2, customer.getCustAddress());
-        preparedStatement.setString(3, customer.getCustPostalCode());
-        preparedStatement.setString(4, customer.getCustPhoneNum());
-        preparedStatement.setInt(5, customer.getCustID());
+            Connection connection = JDBC.openConnection();
+            String q = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?;";
+            dbQuery.setPreparedStatement(connection, q);
+            PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
 
-        int updateCust = preparedStatement.executeUpdate();
-        preparedStatement.close();
-        return updateCust;
+
+
+            preparedStatement.setString(1, custName);
+            preparedStatement.setString(2, custAddress);
+            preparedStatement.setString(3, custPostal);
+            preparedStatement.setString(4, custPhone);
+            preparedStatement.setInt(5, divDivision);
+            preparedStatement.setInt(6, custID);
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public static int deleteCustomer(Customers customer) throws SQLException{

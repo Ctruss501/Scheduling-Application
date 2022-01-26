@@ -1,5 +1,7 @@
 package Model;
 
+import java.beans.Visibility;
+
 public class Countries {
 
     private int countryID;
