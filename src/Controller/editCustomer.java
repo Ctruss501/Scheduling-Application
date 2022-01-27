@@ -7,7 +7,6 @@ import DAO.divisionsDAO;
 import Model.Countries;
 import Model.Customers;
 import Model.Divisions;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
@@ -59,7 +58,9 @@ public class editCustomer implements Initializable {
     }
 
     public void saveOnAction(ActionEvent actionEvent) throws IOException {
+
         int custID = Integer.parseInt(custIDTextField.getText());
+
         String custName = nameTextField.getText();
         if(nameTextField.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);

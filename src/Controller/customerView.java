@@ -14,10 +14,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class customerView implements Initializable {
-    //ObservableList<Customers> customersObservableList;
     public TableView<Customers> customerTableView;
     public TableColumn<Customers, Integer> custIDColumn;
     public TableColumn<Customers, String> custNameColumn;
@@ -40,8 +41,6 @@ public class customerView implements Initializable {
         custPostalColumn.setCellValueFactory(new PropertyValueFactory<>("custPostalCode"));
         custCountryColumn.setCellValueFactory(new PropertyValueFactory<>("countryID"));
         custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("custPhoneNum"));
-
-
     }
 
     public void addOnAction(ActionEvent actionEvent) throws IOException {
@@ -59,6 +58,13 @@ public class customerView implements Initializable {
     public void editOnAction(ActionEvent actionEvent) throws IOException {
 
         Customers selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+        if(customerTableView.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Selection");
+            alert.setContentText("Please select the customer you would like to edit.");
+            alert.showAndWait();
+            return;
+        }
         if(selectedCustomer != null) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("../view/editCustomer.fxml"));
@@ -75,6 +81,7 @@ public class customerView implements Initializable {
     }
 
     public void backOnAction(ActionEvent actionEvent) throws IOException {
+
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1450, 600);
@@ -85,6 +92,28 @@ public class customerView implements Initializable {
         stage.setResizable(false);
     }
 
-    public void deleteOnAction(ActionEvent actionEvent) {
+    public void deleteOnAction(ActionEvent actionEvent) throws SQLException {
+
+        Customers selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
+        if(selectedCustomer != null){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm");
+            alert.setContentText("Do you wish to delete this customer?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK){
+                customersDAO.deleteCustomer(selectedCustomer);
+
+                customerTableView.setItems(customersDAO.getCustomers());
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Selection");
+            alert.setContentText("Please select the customer you would like to delete.");
+            alert.showAndWait();
+        }
     }
 }

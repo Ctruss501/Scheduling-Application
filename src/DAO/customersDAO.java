@@ -1,10 +1,14 @@
 package DAO;
 
+import Model.Countries;
 import Model.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 public class customersDAO {
 
@@ -56,33 +60,35 @@ public class customersDAO {
         return customers;*/
     }
 
-    public static int addCustomer(Customers customer) throws SQLException{
+    public static void addCustomer(String custName, String custAddress, String custPostal, String custPhone, String countryName, int divDivision) throws SQLException{
 
-        Connection connection = JDBC.openConnection();
-        String q = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone) VALUES(?,?,?,?,?,?,?)";
-        dbQuery.setPreparedStatement(connection, q);
-        PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
+        try {
+            Connection connection = JDBC.openConnection();
+            String q = "INSERT INTO customers VALUES(NULL, ?, ?, ?, ?, NOW(), 'user', NOW(), 'user', ?);";
+            dbQuery.setPreparedStatement(connection, q);
+            PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
 
-        preparedStatement.setString(1, customer.getCustName());
-        preparedStatement.setString(2, customer.getCustAddress());
-        preparedStatement.setString(3, customer.getCustPostalCode());
-        preparedStatement.setString(4, customer.getCustPhoneNum());
+            preparedStatement.setString(1, custName);
+            preparedStatement.setString(2, custAddress);
+            preparedStatement.setString(3, custPostal);
+            preparedStatement.setString(4, custPhone);
+            preparedStatement.setInt(5, divDivision);
 
-        int insertCust = preparedStatement.executeUpdate();
-        preparedStatement.close();
-        return insertCust;
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public static void editCustomer(int custID, String custName, String custAddress, String custPostal, String custPhone, String countryName, int divDivision) throws SQLException{
 
         try {
-
             Connection connection = JDBC.openConnection();
-            String q = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?;";
+            String q = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?, Last_Update = NOW() WHERE Customer_ID = ?;";
             dbQuery.setPreparedStatement(connection, q);
             PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
-
-
 
             preparedStatement.setString(1, custName);
             preparedStatement.setString(2, custAddress);
@@ -99,17 +105,21 @@ public class customersDAO {
         }
     }
 
-    public static int deleteCustomer(Customers customer) throws SQLException{
+    public static void deleteCustomer(Customers customer) throws SQLException{
 
-        Connection connection = JDBC.openConnection();
-        String q = "DELETE FROM customers WHERE Customer_ID = ?";
-        dbQuery.setPreparedStatement(connection, q);
-        PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
+        try {
+            Connection connection = JDBC.openConnection();
+            String q = "DELETE FROM customers WHERE Customer_ID = ?";
+            dbQuery.setPreparedStatement(connection, q);
+            PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
 
-        preparedStatement.setInt(1, customer.getCustID());
+            preparedStatement.setInt(1, customer.getCustID());
 
-        int deleteCust = preparedStatement.executeUpdate();
-        preparedStatement.close();
-        return deleteCust;
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
