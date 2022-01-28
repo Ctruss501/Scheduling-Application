@@ -38,13 +38,12 @@ public class mainForm implements Initializable {
     public TableColumn<Appointments, String> typeColumn;
     public TableColumn<Appointments, ZonedDateTime> startColumn;
     public TableColumn<Appointments, ZonedDateTime> endColumn;
-    public TableColumn<Appointments, Integer> custIDColumn;
-    public TableColumn<Appointments, Integer> userIDColumn;
+    public TableColumn<Appointments, String> custIDColumn;
+    public TableColumn<Appointments, String> userIDColumn;
     public Button viewCustTable;
     public RadioButton allRadioButton;
     public RadioButton weekRadioButton;
     public RadioButton monthRadioButton;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,13 +54,13 @@ public class mainForm implements Initializable {
             titleColumn.setCellValueFactory(new PropertyValueFactory<>("apptTitle"));
             descColumn.setCellValueFactory(new PropertyValueFactory<>("apptDesc"));
             locationColumn.setCellValueFactory(new PropertyValueFactory<>("apptLocation"));
-            contactColumn.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+            contactColumn.setCellValueFactory(new PropertyValueFactory<>("contact"));
             typeColumn.setCellValueFactory(new PropertyValueFactory<>("apptType"));
             //dateColumn.setCellValueFactory(new PropertyValueFactory<>("apptDate"))
             startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
             endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
-            custIDColumn.setCellValueFactory(new PropertyValueFactory<>("custID"));
-            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            custIDColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
 
     }
 

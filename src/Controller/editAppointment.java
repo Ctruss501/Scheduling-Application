@@ -9,6 +9,7 @@ import Model.Customers;
 import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,7 +63,8 @@ public class editAppointment implements Initializable {
         endTimeCombo.setItems(time());
     }
 
-    public void saveOnAction(ActionEvent actionEvent) {
+    public void saveOnAction(ActionEvent actionEvent) throws IOException {
+
     }
 
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {

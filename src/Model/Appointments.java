@@ -24,10 +24,13 @@ public class Appointments {
     private int custID;
     private int userID;
     private int contactID;
+    private String customer;
+    private String user;
+    private String contact;
 
 
     public Appointments(int apptID, String apptTitle, String apptDesc, String apptLocation, String apptType,
-                        LocalDateTime start, LocalDateTime end, int custID, int userID, int contactID){
+                        LocalDateTime start, LocalDateTime end, String customer, String user, String contact){
         this.apptID = apptID;
         this.apptTitle = apptTitle;
         this.apptDesc = apptDesc;
@@ -35,9 +38,9 @@ public class Appointments {
         this.apptType = apptType;
         this.start = start;
         this.end = end;
-        this.custID = custID;
-        this. userID = userID;
-        this.contactID = contactID;
+        this.customer = customer;
+        this.user = user;
+        this.contact = contact;
     }
 
     /**
@@ -210,4 +213,27 @@ public class Appointments {
         this.contactID = contactID;
     }
 
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 }
