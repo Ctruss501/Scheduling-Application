@@ -171,14 +171,14 @@ public class Appointments {
      */
     public int getCustID() {
         return custID;
-    }
+   }
 
     /**
      *
      * @param custID
      */
     public void setCustID(int custID) {
-        this.custID = custID;
+       this.custID = custID;
     }
 
     /**

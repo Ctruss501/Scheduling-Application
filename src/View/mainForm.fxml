@@ -6,9 +6,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainForm">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainForm">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="607.0" layoutX="-4.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1457.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="534.0" layoutX="-4.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1304.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="1.0">
                <stops>
@@ -25,7 +25,7 @@
                </stops>
             </RadialGradient>
          </fill></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" layoutX="-5.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="1457.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" layoutX="-5.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="1304.0">
          <fill>
             <RadialGradient centerX="0.488888888888889" centerY="0.5" radius="1.0">
                <stops>
@@ -47,7 +47,7 @@
                </stops>
             </RadialGradient>
          </fill></Rectangle>
-       <TableView fx:id="apptTableView" layoutX="13.0" layoutY="125.0" prefHeight="350.0" prefWidth="1425.0">
+       <TableView fx:id="apptTableView" layoutX="13.0" layoutY="125.0" prefHeight="350.0" prefWidth="1275.0">
            <columns>
                <TableColumn fx:id="apptIDColumn" prefWidth="97.0" text="Appointment ID" />
                <TableColumn fx:id="titleColumn" prefWidth="128.0" text="Title" />
@@ -55,10 +55,10 @@
                <TableColumn fx:id="locationColumn" prefWidth="155.0" text="Location" />
                <TableColumn fx:id="contactColumn" prefWidth="138.0" text="Contact" />
                <TableColumn fx:id="typeColumn" prefWidth="126.0" text="Type" />
-               <TableColumn fx:id="startColumn" prefWidth="200.0" text="Start Time&amp;Date" />
-               <TableColumn fx:id="endColumn" prefWidth="200.0" text="End Date&amp;Time" />
-               <TableColumn fx:id="custIDColumn" prefWidth="103.0" text="Customer" />
-               <TableColumn fx:id="userIDColumn" prefWidth="79.0" text="User" />
+               <TableColumn fx:id="startColumn" prefWidth="132.0" text="Start Date&amp;Time" />
+               <TableColumn fx:id="endColumn" prefWidth="89.0" text="End Time" />
+               <TableColumn fx:id="custIDColumn" prefWidth="135.0" text="Customer" />
+               <TableColumn fx:id="userIDColumn" prefWidth="76.0" text="User" />
            </columns>
        </TableView>
       <Label layoutX="14.0" layoutY="53.0" prefHeight="17.0" prefWidth="39.0" text="Filter:">
@@ -75,13 +75,13 @@
       <Button layoutX="143.0" layoutY="88.0" mnemonicParsing="false" onAction="#addApptOnAction" text="Add Appointment" />
       <Button layoutX="389.0" layoutY="88.0" mnemonicParsing="false" onAction="#deleteApptOnAction" text="Delete Appointment" />
       <Button layoutX="266.0" layoutY="88.0" mnemonicParsing="false" onAction="#editApptOnAction" text="Edit Appointment" />
-      <Button fx:id="viewCustTable" layoutX="1335.0" layoutY="81.0" mnemonicParsing="false" onAction="#viewCustTableOnAction" text="View Customers" />
-      <Text fill="WHITE" layoutX="655.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments">
+      <Button fx:id="viewCustTable" layoutX="1187.0" layoutY="81.0" mnemonicParsing="false" onAction="#viewCustTableOnAction" text="View Customers" />
+      <Text fill="WHITE" layoutX="576.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Text>
-      <Button layoutX="45.0" layoutY="548.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="25.0" prefWidth="57.0" text="Exit">
+      <Button layoutX="42.0" layoutY="493.0" mnemonicParsing="false" onAction="#exitOnAction" prefHeight="25.0" prefWidth="57.0" text="Exit">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

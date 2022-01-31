@@ -6,16 +6,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class appointmentsDAO {
 
     public static ObservableList<Appointments> getAppointments(){
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
         try {
@@ -133,7 +133,7 @@ public class appointmentsDAO {
         return appointments;
     }
 
-    public static void addAppointment(String title, String desc, String location, String type, String start, String end, int customer, int user, int contact) throws SQLException{
+    public static void addAppointment(String title, String desc, String location, String type, LocalDateTime start, LocalDateTime end, int customer, int user, int contact) throws SQLException{
 
         try {
             Connection connection = JDBC.openConnection();
@@ -145,8 +145,8 @@ public class appointmentsDAO {
             preparedStatement.setString(2, desc);
             preparedStatement.setString(3, location);
             preparedStatement.setString(4, type);
-            preparedStatement.setString(5, start);
-            preparedStatement.setString(6, end);
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
+            preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
             preparedStatement.setInt(7, customer);
             preparedStatement.setInt(8, user);
             preparedStatement.setInt(9, contact);
@@ -159,12 +159,12 @@ public class appointmentsDAO {
         }
     }
 
-    public static void editAppointment(int apptID, String title, String desc, String location, String type, String start, String end, int customer, int user, int contact) throws SQLException{
+    public static void editAppointment(int apptID, String title, String desc, String location, String type, LocalDateTime start, LocalDateTime end, int customer, int user, int contact) throws SQLException{
 
         try {
             Connection connection = JDBC.openConnection();
-            String q = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = NOW()," +
-                    " Last_Update = NOW(), Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?;";
+            String q = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?," +
+                    " Customer_ID = ?, User_ID = ?, Contact_ID = ?, Last_Update = NOW() WHERE Appointment_ID = ?;";
             dbQuery.setPreparedStatement(connection, q);
             PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
 
@@ -172,14 +172,14 @@ public class appointmentsDAO {
             preparedStatement.setString(2, desc);
             preparedStatement.setString(3, location);
             preparedStatement.setString(4, type);
-            preparedStatement.setString(5, start);
-            preparedStatement.setString(6, end);
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
+            preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
             preparedStatement.setInt(7, customer);
             preparedStatement.setInt(8, user);
             preparedStatement.setInt(9, contact);
             preparedStatement.setInt(10, apptID);
 
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
             preparedStatement.close();
         }
         catch (SQLException e){
@@ -187,7 +187,7 @@ public class appointmentsDAO {
         }
     }
 
-    public static void deleteCustomer(Customers customer) throws SQLException{
+    public static void deleteAppointment(Appointments appointment) throws SQLException{
 
         try {
             Connection connection = JDBC.openConnection();
@@ -195,7 +195,7 @@ public class appointmentsDAO {
             dbQuery.setPreparedStatement(connection, q);
             PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
 
-            preparedStatement.setInt(1, customer.getCustID());
+            preparedStatement.setInt(1, appointment.getApptID());
 
             preparedStatement.execute();
             preparedStatement.close();

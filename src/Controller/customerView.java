@@ -41,6 +41,9 @@ public class customerView implements Initializable {
         custPostalColumn.setCellValueFactory(new PropertyValueFactory<>("custPostalCode"));
         custCountryColumn.setCellValueFactory(new PropertyValueFactory<>("countryID"));
         custPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("custPhoneNum"));
+
+        customerTableView.getSortOrder().add(custIDColumn);
+        customerTableView.sort();
     }
 
     public void addOnAction(ActionEvent actionEvent) throws IOException {
@@ -84,7 +87,7 @@ public class customerView implements Initializable {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1450, 600);
+        Scene scene = new Scene(root, 1300, 530);
         stage.setTitle("Scheduling Application - Main");
         stage.setScene(scene);
         stage.show();

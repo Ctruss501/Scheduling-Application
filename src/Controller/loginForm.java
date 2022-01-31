@@ -55,8 +55,8 @@ public class loginForm implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ResourceBundle englishBundle = resourceBundle.getBundle("Utilities/lang", Locale.getDefault());
-        ResourceBundle frenchBundle = resourceBundle.getBundle("Utilities/lang", Locale.getDefault());
+        ResourceBundle englishBundle = ResourceBundle.getBundle("Utilities/lang", Locale.getDefault());
+        ResourceBundle frenchBundle = ResourceBundle.getBundle("Utilities/lang", Locale.getDefault());
 
         if(Locale.getDefault().getLanguage().equals("en")){
             loginTitleText.setText(englishBundle.getString("loginTitle"));
@@ -121,7 +121,7 @@ public class loginForm implements Initializable {
 
             Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1450, 600);
+            Scene scene = new Scene(root, 1300, 530);
             stage.setTitle("Scheduling Application - Main");
             stage.setScene(scene);
             stage.show();

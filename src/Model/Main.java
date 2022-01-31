@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
+import java.time.ZoneId;
 import java.util.Locale;
 
 /**
@@ -43,6 +44,7 @@ public class Main extends Application {
 
         //Used to test system default language set to French.
         //Locale.setDefault(new Locale("fr"));
+        //Locale.setDefault(new Locale("en", "fr"));
         launch(args);
 
         JDBC.closeConnection();
