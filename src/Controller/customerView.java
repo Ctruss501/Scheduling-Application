@@ -110,6 +110,8 @@ public class customerView implements Initializable {
                 customersDAO.deleteCustomer(selectedCustomer);
 
                 customerTableView.setItems(customersDAO.getCustomers());
+                customerTableView.getSortOrder().add(custIDColumn);
+                customerTableView.sort();
             }
         }
         else{

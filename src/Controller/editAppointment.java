@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalTimeStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -57,14 +59,18 @@ public class editAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+
         userCombo.setItems(userDAO.getUsers());
         custCombo.setItems(customersDAO.getCustomers());
         contactCombo.setItems(contactsDAO.getContacts());
         startTimeCombo.setItems(time());
+        startTimeCombo.setConverter(new LocalTimeStringConverter(timeFormatter, timeFormatter));
         endTimeCombo.setItems(time());
+        endTimeCombo.setConverter(new LocalTimeStringConverter(timeFormatter, timeFormatter));
     }
 
-    public void saveOnAction(ActionEvent actionEvent) throws IOException {
+    public void saveOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
         int apptID = Integer.parseInt(apptIDTextField.getText());
 
@@ -117,29 +123,25 @@ public class editAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
+        User user = userCombo.getSelectionModel().getSelectedItem();
+        if(userCombo.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Select a User");
+            alert.setContentText("Please select a user for the appointment.");
+            alert.showAndWait();
+            return;
+        }
         int contact = contactCombo.getValue().getContactID();
         if(contactCombo.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Select a Contact");
             alert.setContentText("Please select a contact for the appointment.");
             alert.showAndWait();
-            return;
-        }
-        int user = userCombo.getValue().getUserID();
-        if(userCombo.getSelectionModel().getSelectedItem() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Select a User");
-            alert.setContentText("Please select a user for the appointment.");
-            alert.showAndWait();
         }
 
-        try{
-            JDBC.openConnection();
-            appointmentsDAO.editAppointment(apptID, title, type, location, desc, start, end, customer, contact, user);
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
+
+            appointmentsDAO.editAppointment(apptID, title, type, location, desc, start, end, customer, user.getUserID(), contact);
+
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

@@ -56,8 +56,8 @@ public class mainForm implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy         HH:mm");
-        DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy         hh:mm a");
+        DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
 
         apptTableView.setItems(appointmentsDAO.getAppointments());
 
@@ -143,6 +143,8 @@ public class mainForm implements Initializable {
                 appointmentsDAO.deleteAppointment(selectedAppointment);
 
                 apptTableView.setItems(appointmentsDAO.getAppointments());
+                apptTableView.getSortOrder().add(apptIDColumn);
+                apptTableView.sort();
             }
         }
         else{

@@ -20,14 +20,11 @@ public class appointmentsDAO {
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
         try {
             JDBC.openConnection();
-            String q = "SELECT * FROM appointments, users, customers, contacts WHERE appointments.Customer_ID = customers.Customer_ID " +
+            String q = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, customers.Customer_Name, appointments.User_ID, users.User_Name, " +
+                    "appointments.Contact_ID, contacts.Contact_Name FROM appointments, customers, users, contacts WHERE appointments.Customer_ID = customers.Customer_ID " +
                     "AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
             dbQuery.Query(q);
             ResultSet resultSet = dbQuery.getResultSet();
-            //ZonedDateTime zonedDateTime = ZonedDateTime.now();
-            //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a z");
-            //String start = zonedDateTime.format(dateTimeFormatter);
-            //String end = zonedDateTime.format(dateTimeFormatter);
 
             while (resultSet.next()) {
                 int appointmentID = resultSet.getInt("Appointment_ID");
@@ -35,12 +32,11 @@ public class appointmentsDAO {
                 String description = resultSet.getString("Description");
                 String location = resultSet.getString("Location");
                 String type = resultSet.getString("Type");
-                //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm").withZone(ZoneOffset.UTC);
                 LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
-                String customer = resultSet.getString(23);
-                String user = resultSet.getString(16);
-                String contact = resultSet.getString(33);
+                String customer = resultSet.getString("Customer_Name");
+                String user = resultSet.getString("User_Name");
+                String contact = resultSet.getString("Contact_Name");
                 Appointments result = new Appointments(appointmentID, title, description,
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
@@ -60,9 +56,11 @@ public class appointmentsDAO {
 
         try {
             JDBC.openConnection();
-            //String q = "SELECT * FROM appointments WHERE Appointment_ID = '" + appointmentId + "'" + "AND YEARWEEK(Week) = YEARWEEK(NOW))";
-            String q = "SELECT * FROM appointments, users, customers, contacts WHERE YEARWEEK(Start) = YEARWEEK(NOW()) AND appointments.Customer_ID = customers.Customer_ID " +
-                    "AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
+            //String q = "SELECT * FROM appointments, users, customers, contacts WHERE YEARWEEK(Start) = YEARWEEK(NOW()) AND appointments.Customer_ID = customers.Customer_ID " +
+                    //"AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
+            String q = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, customers.Customer_Name, appointments.User_ID, users.User_Name, " +
+                    "appointments.Contact_ID, contacts.Contact_Name FROM appointments, customers, users, contacts WHERE YEARWEEK(Start) = YEARWEEK(NOW()) " +
+                    "AND appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
             dbQuery.Query(q);
             //Appointments result;
             ResultSet resultSet = dbQuery.getResultSet();
@@ -79,9 +77,9 @@ public class appointmentsDAO {
                 //ZonedDateTime end = ZonedDateTime.parse(String.format(resultSet.getString("End"), dateTimeFormatter));
                 LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
-                String customer = resultSet.getString(23);
-                String user = resultSet.getString(16);
-                String contact = resultSet.getString(33);
+                String customer = resultSet.getString("Customer_Name");
+                String user = resultSet.getString("User_Name");
+                String contact = resultSet.getString("Contact_Name");
                 Appointments result = new Appointments(appointmentID, title, description,
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
@@ -100,7 +98,10 @@ public class appointmentsDAO {
 
         try {
             JDBC.openConnection();
-            String q = "SELECT * FROM appointments, users, customers, contacts WHERE YEAR(curdate()) = Year(Start) AND MONTH(curdate()) = MONTH(Start) " +
+            //String q = "SELECT * FROM appointments, users, customers, contacts WHERE YEAR(curdate()) = Year(Start) AND MONTH(curdate()) = MONTH(Start) " +
+                    //"AND appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
+            String q = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, customers.Customer_Name, appointments.User_ID, users.User_Name, " +
+                    "appointments.Contact_ID, contacts.Contact_Name FROM appointments, customers, users, contacts WHERE YEAR(curdate()) = Year(Start) AND MONTH(curdate()) = MONTH(Start) " +
                     "AND appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
             dbQuery.Query(q);
             //Appointments result;
@@ -118,9 +119,9 @@ public class appointmentsDAO {
                 //ZonedDateTime end = ZonedDateTime.parse(String.format(resultSet.getString("End"), dateTimeFormatter));
                 LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
-                String customer = resultSet.getString(23);
-                String user = resultSet.getString(16);
-                String contact = resultSet.getString(33);
+                String customer = resultSet.getString("Customer_Name");
+                String user = resultSet.getString("User_Name");
+                String contact = resultSet.getString("Contact_Name");
                 Appointments result = new Appointments(appointmentID, title, description,
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
