@@ -21,10 +21,7 @@ import javafx.util.converter.LocalTimeStringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -32,10 +29,10 @@ import java.util.ResourceBundle;
 public class editAppointment implements Initializable {
     public TextField apptIDTextField;
     public TextField titleTextField;
-    public TextField typeTextField;
     public TextField locationTextField;
     public TextField descTextField;
     public DatePicker startDatePicker;
+    public ComboBox<String> typeCombo;
     public ComboBox<LocalTime> startTimeCombo;
     public ComboBox<LocalTime> endTimeCombo;
     public ComboBox<Customers> custCombo;
@@ -61,6 +58,7 @@ public class editAppointment implements Initializable {
 
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
 
+        typeCombo.getItems().addAll("In-Person", "Virtual", "Customer Welcome", "De-Briefing", "Planning Session");
         userCombo.setItems(userDAO.getUsers());
         custCombo.setItems(customersDAO.getCustomers());
         contactCombo.setItems(contactsDAO.getContacts());
@@ -82,8 +80,8 @@ public class editAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-        String type = typeTextField.getText();
-        if(typeTextField.getText().isEmpty()){
+        String type = typeCombo.getSelectionModel().getSelectedItem();
+        if(typeCombo.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Type Empty");
             alert.setContentText("The appointment must have a type.");
@@ -106,22 +104,99 @@ public class editAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-        LocalDateTime start = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
-        LocalDateTime end = LocalDateTime.of(startDatePicker.getValue(), endTimeCombo.getValue());
-        if(startDatePicker.getValue() == null || startTimeCombo.getSelectionModel().getSelectedItem() == null || endTimeCombo.getSelectionModel().getSelectedItem() == null){
+        //Combining the date picker with the time combos
+        LocalDateTime selectedStart = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
+        LocalDateTime selectedEnd = LocalDateTime.of(startDatePicker.getValue(), endTimeCombo.getValue());
+
+        //ZoneId for the user's system.
+        ZoneId systemZone = ZoneId.systemDefault();
+        //ZoneId for est.
+        ZoneId est = ZoneId.of("America/New_York");
+
+        LocalTime businessStart = LocalTime.of(8, 0);
+        LocalTime businessEnd = LocalTime.of(22,0);
+
+        //Selected start and end time to system's zone.
+        ZonedDateTime systemStartZDT = ZonedDateTime.of(selectedStart, systemZone);
+        ZonedDateTime systemEndZDT = ZonedDateTime.of(selectedEnd, systemZone);
+
+        //Selected start and end time with system's zone converted to est.
+        ZonedDateTime estStartZDT = systemStartZDT.withZoneSameInstant(est);
+        ZonedDateTime estEndZDT = systemEndZDT.withZoneSameInstant(est);
+
+        //Selected start and end time that was converted to est, converting to
+        //local date and time for comparison to business hours, which are 8a-10p est.
+        LocalTime businessStartEst = estStartZDT.toLocalDateTime().toLocalTime();
+        LocalTime businessEndEst = estEndZDT.toLocalDateTime().toLocalTime();
+        if(startDatePicker.getValue() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Date and Time Selection");
-            alert.setContentText("Please select a proper date and time for the appointment.");
+            alert.setTitle("Select Appointment Date");
+            alert.setContentText("Please select a date for the appointment.");
             alert.showAndWait();
             return;
         }
-        int customer = custCombo.getValue().getCustID();
+        if(startTimeCombo.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Select Appointment Start Time");
+            alert.setContentText("Please select a start time for the appointment.");
+            alert.showAndWait();
+            return;
+        }
+        if(endTimeCombo.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Select Appointment End Time");
+            alert.setContentText("Please select an end time for the appointment.");
+            alert.showAndWait();
+            return;
+        }
+        if(startTimeCombo.getValue().isAfter(endTimeCombo.getValue()) || startTimeCombo.getValue().equals(endTimeCombo.getValue())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Selected Appointment Time");
+            alert.setContentText("Make sure appointment start time is before end time.");
+            alert.showAndWait();
+            return;
+        }
+        if(startDatePicker.getValue().equals(LocalDate.now())){
+            if(startTimeCombo.getValue().isBefore(LocalTime.now())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Appointment Date and Time");
+                alert.setContentText("Appointments must take place in the future.");
+                alert.showAndWait();
+                return;
+            }
+        }
+        if(businessStartEst.isBefore(businessStart) || businessEndEst.isAfter(businessEnd)){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Appointment Date and Time");
+            alert.setContentText("Appointments must be scheduled within EST business hours: 8:00 am to 10:00 pm.");
+            alert.showAndWait();
+            return;
+        }
+        Customers customer = custCombo.getSelectionModel().getSelectedItem();
         if(custCombo.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Select a Customer");
             alert.setContentText("Please select a customer for the appointment.");
             alert.showAndWait();
             return;
+        }
+        //Checking exiting appointments by the customer id that is chosen for the appointment.
+        //If the appointment end or start are within the time range, the appointments overlap
+        //and cannot be scheduled.
+        for(int i = 0; i < appointmentsDAO.getAppointments().size(); i++){
+            Appointments appointments = appointmentsDAO.getAppointments().get(i);
+            if(Objects.equals(appointments.getCustomer(), customer.getCustName())){
+                //Checking the selected start and end time for adding appointment. If it is within the time range that is 30 minutes
+                //prior to the exising start and 30 minutes after the existing end, the appointment cannot be scheduled for
+                //this selected time.
+                if(selectedStart.isBefore(appointments.getEnd().plusMinutes(30)) && selectedEnd.isAfter(appointments.getStart().minusMinutes(30))){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Overlap");
+                    alert.setContentText("The chosen customer has another appointment around this time.");
+                    alert.showAndWait();
+                    return;
+                }
+            }
         }
         User user = userCombo.getSelectionModel().getSelectedItem();
         if(userCombo.getSelectionModel().getSelectedItem() == null){
@@ -139,9 +214,7 @@ public class editAppointment implements Initializable {
             alert.showAndWait();
         }
 
-
-            appointmentsDAO.editAppointment(apptID, title, type, location, desc, start, end, customer, user.getUserID(), contact);
-
+        appointmentsDAO.editAppointment(apptID, title, desc, location, type, selectedStart, selectedEnd, customer.getCustID(), user.getUserID(), contact);
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -169,7 +242,7 @@ public class editAppointment implements Initializable {
 
         apptIDTextField.setText(String.valueOf(selectedAppointment.getApptID()));
         titleTextField.setText(selectedAppointment.getApptTitle());
-        typeTextField.setText(selectedAppointment.getApptType());
+        typeCombo.setValue(selectedAppointment.getApptType());
         locationTextField.setText(selectedAppointment.getApptLocation());
         descTextField.setText(selectedAppointment.getApptDesc());
         startDatePicker.setValue(selectedAppointment.getStart().toLocalDate());

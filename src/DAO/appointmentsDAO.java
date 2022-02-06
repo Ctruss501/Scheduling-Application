@@ -14,9 +14,6 @@ public class appointmentsDAO {
 
     public static ObservableList<Appointments> getAppointments(){
 
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
-
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
         try {
             JDBC.openConnection();
@@ -204,5 +201,30 @@ public class appointmentsDAO {
         catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public static ObservableList<Appointments> totalCustAppointments(int monthSelection) {
+
+        //Have to use prepared statement. Figure it out
+        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
+        try {
+            JDBC.openConnection();
+            String q = "SELECT Count(*) AS Total, Type AS Type FROM appointments WHERE MONTH(Start) = '" + monthSelection + "' GROUP BY Type";
+            dbQuery.Query(q);
+            ResultSet resultSet = dbQuery.getResultSet();
+
+
+            while (resultSet.next()) {
+                String type = resultSet.getString("Type");
+                int total = resultSet.getInt("Total");
+                Appointments result = new Appointments(type, total);
+                appointments.add(result);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
     }
 }

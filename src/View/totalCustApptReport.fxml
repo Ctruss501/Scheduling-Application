@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="329.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.totalCustApptReport">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="329.0" stroke="BLACK" strokeType="INSIDE" width="400.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.25" green="0.25" blue="0.25" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007662835249042145">
+                     <color>
+                        <Color red="0.25" green="0.25" blue="0.25" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="58.0" stroke="BLACK" strokeType="INSIDE" width="400.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.320333331823349" green="0.009999999776482582" blue="0.5" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007662835249042145">
+                     <color>
+                        <Color red="0.320333331823349" green="0.009999999776482582" blue="0.5" opacity="0.9860869646072388" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <TableView fx:id="totalApptTableView" layoutX="51.0" layoutY="115.0" prefHeight="200.0" prefWidth="240.0">
+        <columns>
+          <TableColumn fx:id="typeColumn" prefWidth="163.0" text="Type" />
+          <TableColumn fx:id="totalColumn" prefWidth="76.0" text="Total" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="monthCombo" layoutX="51.0" layoutY="75.0" onAction="#monthOnAction" prefWidth="150.0" promptText="Month" visibleRowCount="6" />
+      <Text fill="WHITE" layoutX="72.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Customer Appointments">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="334.0" layoutY="290.0" mnemonicParsing="false" onAction="#cancelOnAction" text="Cancel" />
+   </children>
+</AnchorPane>

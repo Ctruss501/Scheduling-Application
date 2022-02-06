@@ -1,6 +1,9 @@
 package Controller;
 
+import Model.Appointments;
 import Model.User;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 
 import javafx.event.ActionEvent;
@@ -9,10 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -20,14 +20,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.sql.*;
 import java.io.*;
 
 import DAO.*;
+import javafx.util.Duration;
 
 /**
  * This class is for the login page of the scheduling application.
@@ -44,11 +47,15 @@ public class loginForm implements Initializable {
 
     /**
      * Method for login screen.
-     * Based on users language settings, the login screen will translate all text
+     * Based on user's language settings, the login screen will translate all text
      * to either English or French.
-     * Username and Password fields are prompt text. Added listener so that the
-     * prompt text will still show in the fields when they are select, at least
-     * until the user starts to type in them.
+     *
+     * Username and Password fields are prompt text.
+     * For these prompt text fields, a Lambda expression is used to make sure the prompt text is
+     * still displayed on the fields. This was done so that the user can see what is meant to be typed
+     * into those fields even when the field is selected. The prompt text will show until the user
+     * start typing.
+     *
      * @param url
      * @param resourceBundle
      */
@@ -64,7 +71,7 @@ public class loginForm implements Initializable {
             passwordPasswordField.setPromptText(englishBundle.getString("password"));
             loginButton.setText(englishBundle.getString("loginButton"));
             loginErrorLabel.setText(englishBundle.getString("error"));
-            userLocationLabel.setText(Locale.getDefault().getDisplayCountry());
+            userLocationLabel.setText(String.valueOf(ZoneId.systemDefault()));
 
             usernameTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue){
@@ -83,7 +90,7 @@ public class loginForm implements Initializable {
             passwordPasswordField.setPromptText(frenchBundle.getString("password"));
             loginButton.setText(frenchBundle.getString("loginButton"));
             loginErrorLabel.setText(frenchBundle.getString("error"));
-            userLocationLabel.setText(frenchBundle.getString("country"));
+            userLocationLabel.setText(String.valueOf(ZoneId.systemDefault()));
 
             usernameTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue){
@@ -98,9 +105,25 @@ public class loginForm implements Initializable {
         }
     }
 
+    /**
+     * This method handles to log-in button for the user, along with logging the user's successful and unsuccessful
+     * log in attempts. If the user's username and/or password are incorrect, the label will show, letting the
+     * user know to try again.
+     *
+     * Also in this method, after the stage is set, is the function to display a pop-up message for the user if they
+     * do or do not have an upcoming appointment within the next 15 minutes. This is set here so that this message will
+     * only display once, on log-in, instead of everytime the user goes back to the main/appointment screen.
+     *
+     * A lambda expression is used here to set a delay on the pop-up message. Instead of the pop-up message displaying
+     * right as the new scene is loading, there is a 1-second delay.
+     *
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     public void loginOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
-       FileWriter fileWriter = new FileWriter("src/login_activity.txt", true);
+        FileWriter fileWriter = new FileWriter("src/login_activity.txt", true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
@@ -127,6 +150,36 @@ public class loginForm implements Initializable {
             stage.show();
             stage.centerOnScreen();
             stage.setResizable(false);
+
+            for(int j = 0; j < appointmentsDAO.getAppointments().size(); j++){
+                Appointments appointments = appointmentsDAO.getAppointments().get(j);
+
+                for(int i = 0; i < userDAO.getUsers().size(); i++) {
+                    User user = userDAO.getUsers().get(i);
+
+                    if(Objects.equals(appointments.getUser(), user.getUsername())){
+
+                        if(appointments.getStart().isBefore(LocalDateTime.now().plusMinutes(15)) && appointments.getStart().isAfter(LocalDateTime.now().plusSeconds(1))){
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Upcoming Appointments");
+                            alert.setContentText("Welcome back. You have an appointment within the next 15 minutes.");
+                            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                            delay.setOnFinished(e -> alert.show());
+                            delay.play();
+                            return;
+                        }
+                        else {
+                            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                            alert1.setTitle("Upcoming Appointments");
+                            alert1.setContentText("Welcome back. You do not currently have an appointment within the next 15 minutes.");
+                            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                            delay.setOnFinished(e -> alert1.show());
+                            delay.play();
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         else {

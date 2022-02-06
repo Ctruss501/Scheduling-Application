@@ -43,6 +43,11 @@ public class Appointments {
         this.contact = contact;
     }
 
+    public Appointments(String apptType, int total) {
+        this.apptType = apptType;
+        this.apptID = total;
+    }
+
     /**
      *
      * @return apptID

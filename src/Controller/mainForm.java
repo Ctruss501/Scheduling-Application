@@ -3,9 +3,12 @@ package Controller;
 import DAO.JDBC;
 import DAO.appointmentsDAO;
 import DAO.customersDAO;
+import DAO.userDAO;
 import Model.Appointments;
 import Model.Customers;
 import Model.User;
+import javafx.animation.AnimationTimer;
+import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.converter.LocalDateTimeStringConverter;
 
 import java.io.IOException;
@@ -28,6 +32,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -52,7 +57,15 @@ public class mainForm implements Initializable {
     public RadioButton allRadioButton;
     public RadioButton weekRadioButton;
     public RadioButton monthRadioButton;
+    public ComboBox<String> reportsCombo;
 
+    /**
+     * The initialize method populates the appointment table. DateTimeFormatter was used to
+     * make the start and end times more legible and to show the date only once (in the start column).
+     * Columns are set sort by the appointment IDs.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -77,6 +90,7 @@ public class mainForm implements Initializable {
         apptTableView.getSortOrder().add(apptIDColumn);
         apptTableView.sort();
 
+        reportsCombo.getItems().addAll("Total Customer Appointments", "Contact Schedule");
     }
 
 
@@ -125,7 +139,6 @@ public class mainForm implements Initializable {
             stage.centerOnScreen();
             stage.setResizable(false);
         }
-
     }
 
     public void deleteApptOnAction(ActionEvent actionEvent) throws SQLException {
@@ -142,6 +155,11 @@ public class mainForm implements Initializable {
             if (result.get() == ButtonType.OK){
                 appointmentsDAO.deleteAppointment(selectedAppointment);
 
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Appointment Canceled");
+                alert1.setContentText("Appointment ID: " + selectedAppointment.getApptID() + " of Type: " + selectedAppointment.getApptType() + " has been canceled.");
+                alert1.show();
+
                 apptTableView.setItems(appointmentsDAO.getAppointments());
                 apptTableView.getSortOrder().add(apptIDColumn);
                 apptTableView.sort();
@@ -157,24 +175,50 @@ public class mainForm implements Initializable {
 
     public void allFilterOnAction(ActionEvent actionEvent){
 
-            appointmentsObservableList = appointmentsDAO.getAppointments();
-            apptTableView.setItems(appointmentsObservableList);
+        appointmentsObservableList = appointmentsDAO.getAppointments();
 
+        apptTableView.setItems(appointmentsObservableList);
+        apptTableView.getSortOrder().add(apptIDColumn);
+        apptTableView.sort();
     }
 
-    public void weekFilterOnAction(ActionEvent actionEvent){
+    public void weekFilterOnAction(ActionEvent actionEvent) {
 
-            appointmentsObservableList = appointmentsDAO.getAppointmentsByWeek();
-            apptTableView.setItems(appointmentsObservableList);
+        appointmentsObservableList = appointmentsDAO.getAppointmentsByWeek();
+
+        apptTableView.setItems(appointmentsObservableList);
+        apptTableView.getSortOrder().add(apptIDColumn);
+        apptTableView.sort();
     }
 
     public void monthFilterOnAction(ActionEvent actionEvent){
 
-            appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
-            apptTableView.setItems(appointmentsObservableList);
+        appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
+
+        apptTableView.setItems(appointmentsObservableList);
+        apptTableView.getSortOrder().add(apptIDColumn);
+        apptTableView.sort();
+    }
+
+    public void reportsOnAction(ActionEvent actionEvent) throws IOException {
+
+        reportsCombo.getSelectionModel().getSelectedItem();
+        if(Objects.equals(reportsCombo.getSelectionModel().getSelectedItem(), "Total Customer Appointments")){
+
+            Parent root = FXMLLoader.load(getClass().getResource("../view/totalCustApptReport.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 400, 329);
+            stage.setTitle("Report - Total Customer Appointments");
+            stage.setScene(scene);
+            stage.show();
+            stage.centerOnScreen();
+            stage.setResizable(false);
+        }
+
     }
 
     public void exitOnAction(ActionEvent actionEvent) {
             System.exit(0);
+            JDBC.closeConnection();
     }
 }

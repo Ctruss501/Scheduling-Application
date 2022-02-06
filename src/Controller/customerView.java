@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.appointmentsDAO;
+import Model.Appointments;
 import Model.Customers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -107,7 +110,25 @@ public class customerView implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK){
+
+                //If the customer that is being deleted has existing appointments,
+                //the appointments for that customer must be deleted first.
+                for(int i = 0; i < appointmentsDAO.getAppointments().size(); i++) {
+                    Appointments appointments = appointmentsDAO.getAppointments().get(i);
+                    if(Objects.equals(appointments.getCustomer(), selectedCustomer.getCustName())) {
+                        Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                        alert1.setTitle("Customer Appointments");
+                        alert1.setContentText("This customer currently has existing appointments. Their appointments must be canceled before this customer can be deleted.");
+                        alert1.showAndWait();
+                        return;
+                    }
+                }
                 customersDAO.deleteCustomer(selectedCustomer);
+
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Customer Deleted");
+                alert2.setContentText("Customer ID: " + selectedCustomer.getCustID() + ", Name: " + selectedCustomer.getCustName() + " has been deleted.");
+                alert2.show();
 
                 customerTableView.setItems(customersDAO.getCustomers());
                 customerTableView.getSortOrder().add(custIDColumn);
