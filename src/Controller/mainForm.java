@@ -214,6 +214,17 @@ public class mainForm implements Initializable {
             stage.centerOnScreen();
             stage.setResizable(false);
         }
+        if(Objects.equals(reportsCombo.getSelectionModel().getSelectedItem(), "Contact Schedule")){
+
+            Parent root = FXMLLoader.load(getClass().getResource("../view/contactScheduleReport.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 790, 400);
+            stage.setTitle("Report - Contact Schedule");
+            stage.setScene(scene);
+            stage.show();
+            stage.centerOnScreen();
+            stage.setResizable(false);
+        }
 
     }
 

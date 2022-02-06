@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the report that displays the appointment type and the total number
+ * of them for the selected month.
+ */
 public class totalCustApptReport implements Initializable {
 
     ObservableList<Appointments> appointmentsObservableList;

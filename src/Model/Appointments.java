@@ -43,9 +43,21 @@ public class Appointments {
         this.contact = contact;
     }
 
+    //Constructor for total customer appointments by month and type.
     public Appointments(String apptType, int total) {
         this.apptType = apptType;
         this.apptID = total;
+    }
+
+    //Constructor for contact schedule report.
+    public Appointments(int apptID, String apptTitle, String apptType, String apptDesc, LocalDateTime start, LocalDateTime end, String customer) {
+        this.apptID = apptID;
+        this.apptTitle = apptTitle;
+        this.apptType = apptType;
+        this.apptDesc = apptDesc;
+        this.start = start;
+        this.end = end;
+        this.customer = customer;
     }
 
     /**

@@ -205,14 +205,12 @@ public class appointmentsDAO {
 
     public static ObservableList<Appointments> totalCustAppointments(int monthSelection) {
 
-        //Have to use prepared statement. Figure it out
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
         try {
             JDBC.openConnection();
             String q = "SELECT Count(*) AS Total, Type AS Type FROM appointments WHERE MONTH(Start) = '" + monthSelection + "' GROUP BY Type";
             dbQuery.Query(q);
             ResultSet resultSet = dbQuery.getResultSet();
-
 
             while (resultSet.next()) {
                 String type = resultSet.getString("Type");
@@ -221,8 +219,37 @@ public class appointmentsDAO {
                 appointments.add(result);
 
             }
-
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+    public static ObservableList<Appointments> contactAppointments(int contactSelection){
+
+        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
+        try {
+            JDBC.openConnection();
+            String q = "SELECT Appointment_ID, Title, Type, Description, Start, End, appointments.Customer_ID, customers.Customer_Name, " +
+                    "appointments.Contact_ID, contacts.Contact_Name FROM appointments, customers, contacts WHERE " +
+                    "appointments.Customer_ID = customers.Customer_ID AND appointments.Contact_ID = '" + contactSelection + "' GROUP BY Appointment_ID";
+            dbQuery.Query(q);
+            ResultSet resultSet = dbQuery.getResultSet();
+
+            while (resultSet.next()) {
+                int appointmentID = resultSet.getInt("Appointment_ID");
+                String title = resultSet.getString("Title");
+                String type = resultSet.getString("Type");
+                String description = resultSet.getString("Description");
+                LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
+                String customer = resultSet.getString("Customer_Name");
+                Appointments result = new Appointments(appointmentID, title, type,
+                        description, start, end, customer);
+                appointments.add(result);
+            }
+        }
+        catch (SQLException e){
             e.printStackTrace();
         }
         return appointments;
