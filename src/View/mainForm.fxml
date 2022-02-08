@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainForm">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="534.0" layoutX="-4.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1304.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="534.0" stroke="BLACK" strokeType="INSIDE" width="1304.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="1.0">
                <stops>
@@ -25,7 +25,7 @@
                </stops>
             </RadialGradient>
          </fill></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="59.0" layoutX="-5.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="1304.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="51.0" stroke="BLACK" strokeType="INSIDE" width="1304.0">
          <fill>
             <RadialGradient centerX="0.488888888888889" centerY="0.5" radius="1.0">
                <stops>
@@ -75,8 +75,8 @@
       <Button layoutX="143.0" layoutY="88.0" mnemonicParsing="false" onAction="#addApptOnAction" text="Add Appointment" />
       <Button layoutX="389.0" layoutY="88.0" mnemonicParsing="false" onAction="#deleteApptOnAction" text="Delete Appointment" />
       <Button layoutX="266.0" layoutY="88.0" mnemonicParsing="false" onAction="#editApptOnAction" text="Edit Appointment" />
-      <Button fx:id="viewCustTable" layoutX="1187.0" layoutY="81.0" mnemonicParsing="false" onAction="#viewCustTableOnAction" text="View Customers" />
-      <Text fill="WHITE" layoutX="576.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments">
+      <Button fx:id="viewCustTable" layoutX="1187.0" layoutY="88.0" mnemonicParsing="false" onAction="#viewCustTableOnAction" text="View Customers" />
+      <Text fill="WHITE" layoutX="581.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
@@ -86,6 +86,17 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <ComboBox fx:id="reportsCombo" layoutX="1085.0" layoutY="14.0" onAction="#reportsOnAction" prefHeight="25.0" prefWidth="194.0" promptText="Reports" />
+      <ComboBox fx:id="reportsCombo" layoutX="1084.0" layoutY="13.0" onAction="#reportsOnAction" prefHeight="25.0" prefWidth="194.0" />
+      <Label fx:id="pastApptReptLabel" layoutX="550.0" layoutY="90.0" prefHeight="19.0" prefWidth="515.0" textFill="#7100bc">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="returnButton" layoutX="1084.0" layoutY="88.0" mnemonicParsing="false" text="Return" visible="false" />
+      <Text fill="WHITE" layoutX="1010.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -39,7 +39,6 @@ import java.util.ResourceBundle;
 
 public class mainForm implements Initializable {
 
-    public ToggleGroup appointmentFilterToggleGroup;
     ObservableList<Appointments> appointmentsObservableList;
 
     public TableView<Appointments> apptTableView;
@@ -53,11 +52,17 @@ public class mainForm implements Initializable {
     public TableColumn<Appointments, LocalDateTime> endColumn;
     public TableColumn<Appointments, String> custIDColumn;
     public TableColumn<Appointments, Integer> userIDColumn;
+
     public Button viewCustTable;
+    public Button returnButton;
+
+    public ToggleGroup appointmentFilterToggleGroup;
     public RadioButton allRadioButton;
     public RadioButton weekRadioButton;
     public RadioButton monthRadioButton;
+
     public ComboBox<String> reportsCombo;
+    public Label pastApptReptLabel;
 
     /**
      * The initialize method populates the appointment table. DateTimeFormatter was used to
@@ -90,7 +95,7 @@ public class mainForm implements Initializable {
         apptTableView.getSortOrder().add(apptIDColumn);
         apptTableView.sort();
 
-        reportsCombo.getItems().addAll("Total Customer Appointments", "Contact Schedule");
+        reportsCombo.getItems().addAll("Total Customer Appointments", "Contact Schedule", "Past Appointments");
     }
 
 
@@ -225,7 +230,25 @@ public class mainForm implements Initializable {
             stage.centerOnScreen();
             stage.setResizable(false);
         }
+        if(Objects.equals(reportsCombo.getSelectionModel().getSelectedItem(), "Past Appointments")){
 
+            pastApptReptLabel.setText("These appointments are in the past and may now be deleted from the table.");
+
+            appointmentsObservableList = appointmentsDAO.pastAppointments();
+
+            apptTableView.setItems(appointmentsObservableList);
+            apptTableView.getSortOrder().add(apptIDColumn);
+            apptTableView.sort();
+
+            returnButton.setVisible(true);
+            allRadioButton.selectedProperty().set(false);
+            returnButton.setOnAction(actionEvent1 -> {
+                allRadioButton.fire();
+                pastApptReptLabel.setText(null);
+                returnButton.setVisible(false);
+                reportsCombo.getSelectionModel().clearSelection();
+            });
+        }
     }
 
     public void exitOnAction(ActionEvent actionEvent) {

@@ -38,8 +38,7 @@ public class appointmentsDAO {
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
             }
-            JDBC.closeConnection();
-            //return appointments;
+            //JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -81,7 +80,7 @@ public class appointmentsDAO {
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
             }
-            JDBC.closeConnection();
+            //JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -123,7 +122,7 @@ public class appointmentsDAO {
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
             }
-            JDBC.closeConnection();
+            //JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -246,6 +245,40 @@ public class appointmentsDAO {
                 String customer = resultSet.getString("Customer_Name");
                 Appointments result = new Appointments(appointmentID, title, type,
                         description, start, end, customer);
+                appointments.add(result);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+    public static ObservableList<Appointments> pastAppointments(){
+
+        ObservableList<Appointments> appointments = FXCollections.observableArrayList();
+
+        try {
+            JDBC.openConnection();
+            String q = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, customers.Customer_Name, appointments.User_ID, users.User_Name, " +
+                    "appointments.Contact_ID, contacts.Contact_Name FROM appointments, customers, users, contacts WHERE TIMESTAMP(Start) < TIMESTAMP(NOW()) " +
+                    "AND appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
+            dbQuery.Query(q);
+            ResultSet resultSet = dbQuery.getResultSet();
+
+            while (resultSet.next()) {
+                int appointmentID = resultSet.getInt("Appointment_ID");
+                String title = resultSet.getString("Title");
+                String description = resultSet.getString("Description");
+                String location = resultSet.getString("Location");
+                String type = resultSet.getString("Type");
+                LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
+                String customer = resultSet.getString("Customer_Name");
+                String user = resultSet.getString("User_Name");
+                String contact = resultSet.getString("Contact_Name");
+                Appointments result = new Appointments(appointmentID, title, description,
+                        location, type, start, end, customer, user, contact);
                 appointments.add(result);
             }
         }
