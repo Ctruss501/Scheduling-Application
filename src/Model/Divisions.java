@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * This is the model class for divisions.
+ */
 public class Divisions {
 
     private int divID;

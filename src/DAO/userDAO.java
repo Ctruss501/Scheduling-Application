@@ -9,13 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Data Access Object class for the users table.
+ * This is the DAO class for users.
  */
 public class userDAO {
 
     /**
-     * Database query to return all users from users table.
-     * @return Users observable list.
+     * Querying the database to get all users.
      */
     public static ObservableList<User> getUsers(){
 
@@ -42,11 +41,7 @@ public class userDAO {
         return users;
     }
 
-    /**
-     * Database query to return users by name from users table
-     * @return Users observable list.
-     */
-    public static ObservableList<User> getUsersFromUsername(){
+    /*public static ObservableList<User> getUsersFromUsername(){
 
         ObservableList<User> users = FXCollections.observableArrayList();
 
@@ -69,6 +64,6 @@ public class userDAO {
             e.printStackTrace();
         }
         return users;
-    }
+    }*/
 
 }

@@ -1,6 +1,5 @@
 package DAO;
 
-import javax.sql.rowset.CachedRowSet;
 import java.sql.*;
 
 /**
@@ -18,6 +17,10 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**
+     * Opening the database connection.
+     * @return
+     */
     public static Connection openConnection()
     {
         try {
@@ -33,6 +36,9 @@ public abstract class JDBC {
         return connection;
     }
 
+    /**
+     * Closing the database connection.
+     */
     public static void closeConnection() {
         try {
             connection.close();

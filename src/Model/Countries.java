@@ -1,7 +1,8 @@
 package Model;
 
-import java.beans.Visibility;
-
+/**
+ * This is the model class for countries.
+ */
 public class Countries {
 
     private int countryID;

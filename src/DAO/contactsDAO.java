@@ -9,8 +9,15 @@ import javafx.collections.ObservableList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This is the DAO for contacts.
+ */
 public class contactsDAO {
 
+    /**
+     * Query the database for all contacts.
+     * @return
+     */
     public static ObservableList<Contacts> getContacts(){
 
         ObservableList<Contacts> contacts = FXCollections.observableArrayList();
@@ -35,7 +42,7 @@ public class contactsDAO {
         return contacts;
     }
 
-    public static Contacts getContactsByName(String contactName) throws SQLException, Exception{
+    /*public static Contacts getContactsByName(String contactName) throws SQLException, Exception{
 
         try {
             JDBC.openConnection();
@@ -56,5 +63,5 @@ public class contactsDAO {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 }

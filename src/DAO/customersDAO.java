@@ -1,17 +1,21 @@
 package DAO;
 
-import Model.Countries;
 import Model.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-
+/**
+ * This is the DAO class for customers.
+ */
 public class customersDAO {
 
+    /**
+     * Query the database for all customers. Getting the country and first level division data for the
+     * all the customers.
+     * @return
+     */
     public static ObservableList<Customers> getCustomers() {
 
         ObservableList<Customers> customers = FXCollections.observableArrayList();
@@ -38,28 +42,18 @@ public class customersDAO {
             e.printStackTrace();
         }
         return customers;
-
-        /*Connection connection = JDBC.openConnection();
-        String q = "SELECT * FROM customers";
-        dbQuery.setPreparedStatement(connection, q);
-        PreparedStatement preparedStatement = dbQuery.getPreparedStatement();
-        preparedStatement.executeQuery();
-        ResultSet resultSet = preparedStatement.getResultSet();
-
-        while (resultSet.next()){
-            int custID = resultSet.getInt("Customer_ID");
-            String custName = resultSet.getString("Customer_Name");
-            String custAddress = resultSet.getString("Address");
-            String custPostal = resultSet.getString("Postal_Code");
-            String custPhone = resultSet.getString("Phone");
-            int divID = resultSet.getInt("Division_ID");
-            Customers result = new Customers(custID, custName, custAddress, custPostal, custPhone, divID);
-            customers.add(result);
-        }
-        preparedStatement.close();
-        return customers;*/
     }
 
+    /**
+     * Query to execute when adding a new customer. Customer ID is auto generated from the database.
+     * @param custName
+     * @param custAddress
+     * @param custPostal
+     * @param custPhone
+     * @param countryName
+     * @param divDivision
+     * @throws SQLException
+     */
     public static void addCustomer(String custName, String custAddress, String custPostal, String custPhone, String countryName, int divDivision) throws SQLException{
 
         try {
@@ -82,6 +76,17 @@ public class customersDAO {
         }
     }
 
+    /**
+     * Query to execute when editing a customer.
+     * @param custID
+     * @param custName
+     * @param custAddress
+     * @param custPostal
+     * @param custPhone
+     * @param countryName
+     * @param divDivision
+     * @throws SQLException
+     */
     public static void editCustomer(int custID, String custName, String custAddress, String custPostal, String custPhone, String countryName, int divDivision) throws SQLException{
 
         try {
@@ -105,6 +110,11 @@ public class customersDAO {
         }
     }
 
+    /**
+     * Query to execute when deleting a customer.
+     * @param customer
+     * @throws SQLException
+     */
     public static void deleteCustomer(Customers customer) throws SQLException{
 
         try {

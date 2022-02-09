@@ -10,8 +10,16 @@ import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This is the DAO class for querying appointments.
+ */
 public class appointmentsDAO {
 
+    /**
+     * Query for getting all appointments from the database. Getting the customer name, username and contact name
+     * so that the names will display in the tables instead of the IDs.
+     * @return
+     */
     public static ObservableList<Appointments> getAppointments(){
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
@@ -38,7 +46,6 @@ public class appointmentsDAO {
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
             }
-            //JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -46,21 +53,23 @@ public class appointmentsDAO {
         return appointments;
     }
 
+    /**
+     * Query for getting all appointments for current week from the database.
+     * Getting the customer name, username and contact name so that the names will display in the tables
+     * instead of the IDs.
+     * @return
+     */
     public static ObservableList<Appointments> getAppointmentsByWeek(){
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
 
         try {
             JDBC.openConnection();
-            //String q = "SELECT * FROM appointments, users, customers, contacts WHERE YEARWEEK(Start) = YEARWEEK(NOW()) AND appointments.Customer_ID = customers.Customer_ID " +
-                    //"AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
             String q = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, customers.Customer_Name, appointments.User_ID, users.User_Name, " +
                     "appointments.Contact_ID, contacts.Contact_Name FROM appointments, customers, users, contacts WHERE YEARWEEK(Start) = YEARWEEK(NOW()) " +
                     "AND appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
             dbQuery.Query(q);
-            //Appointments result;
             ResultSet resultSet = dbQuery.getResultSet();
-            //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
 
             while (resultSet.next()) {
                 int appointmentID = resultSet.getInt("Appointment_ID");
@@ -68,9 +77,6 @@ public class appointmentsDAO {
                 String description = resultSet.getString("Description");
                 String location = resultSet.getString("Location");
                 String type = resultSet.getString("Type");
-                //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm").withZone(ZoneOffset.UTC);
-                //ZonedDateTime start = ZonedDateTime.parse(String.format(resultSet.getString("Start"), dateTimeFormatter));
-                //ZonedDateTime end = ZonedDateTime.parse(String.format(resultSet.getString("End"), dateTimeFormatter));
                 LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
                 String customer = resultSet.getString("Customer_Name");
@@ -80,7 +86,6 @@ public class appointmentsDAO {
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
             }
-            //JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -88,21 +93,23 @@ public class appointmentsDAO {
         return appointments;
     }
 
+    /**
+     * Query for getting all appointments for current month from the database.
+     * Getting the customer name, username and contact name so that the names will display in the tables
+     * instead of the IDs.
+     * @return
+     */
     public static ObservableList<Appointments> getAppointmentsByMonth(){
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
 
         try {
             JDBC.openConnection();
-            //String q = "SELECT * FROM appointments, users, customers, contacts WHERE YEAR(curdate()) = Year(Start) AND MONTH(curdate()) = MONTH(Start) " +
-                    //"AND appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
             String q = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, customers.Customer_Name, appointments.User_ID, users.User_Name, " +
                     "appointments.Contact_ID, contacts.Contact_Name FROM appointments, customers, users, contacts WHERE YEAR(curdate()) = Year(Start) AND MONTH(curdate()) = MONTH(Start) " +
                     "AND appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID";
             dbQuery.Query(q);
-            //Appointments result;
             ResultSet resultSet = dbQuery.getResultSet();
-            //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a z");
 
             while (resultSet.next()) {
                 int appointmentID = resultSet.getInt("Appointment_ID");
@@ -110,9 +117,6 @@ public class appointmentsDAO {
                 String description = resultSet.getString("Description");
                 String location = resultSet.getString("Location");
                 String type = resultSet.getString("Type");
-                //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm").withZone(ZoneOffset.UTC);
-                //ZonedDateTime start = ZonedDateTime.parse(String.format(resultSet.getString("Start"), dateTimeFormatter));
-                //ZonedDateTime end = ZonedDateTime.parse(String.format(resultSet.getString("End"), dateTimeFormatter));
                 LocalDateTime start = resultSet.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime end = resultSet.getTimestamp("End").toLocalDateTime();
                 String customer = resultSet.getString("Customer_Name");
@@ -122,7 +126,6 @@ public class appointmentsDAO {
                         location, type, start, end, customer, user, contact);
                 appointments.add(result);
             }
-            //JDBC.closeConnection();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -130,6 +133,19 @@ public class appointmentsDAO {
         return appointments;
     }
 
+    /**
+     * Query to execute when adding an appointment. Appointment ID is auto incremented from the database.
+     * @param title
+     * @param desc
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param customer
+     * @param user
+     * @param contact
+     * @throws SQLException
+     */
     public static void addAppointment(String title, String desc, String location, String type, LocalDateTime start, LocalDateTime end, int customer, int user, int contact) throws SQLException{
 
         try {
@@ -156,6 +172,20 @@ public class appointmentsDAO {
         }
     }
 
+    /**
+     * Query to execute when editing an appointment.
+     * @param apptID
+     * @param title
+     * @param desc
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param customer
+     * @param user
+     * @param contact
+     * @throws SQLException
+     */
     public static void editAppointment(int apptID, String title, String desc, String location, String type, LocalDateTime start, LocalDateTime end, int customer, int user, int contact) throws SQLException{
 
         try {
@@ -184,6 +214,11 @@ public class appointmentsDAO {
         }
     }
 
+    /**
+     * Query to execute when deleting an appointment.
+     * @param appointment
+     * @throws SQLException
+     */
     public static void deleteAppointment(Appointments appointment) throws SQLException{
 
         try {
@@ -202,6 +237,12 @@ public class appointmentsDAO {
         }
     }
 
+    /**
+     * Querying the database for the total customer appointments report. Setting just the type and total columns.
+     * Counting the total appointments where the month is equal to the selection. Grouping by type.
+     * @param monthSelection
+     * @return
+     */
     public static ObservableList<Appointments> totalCustAppointments(int monthSelection) {
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
@@ -224,6 +265,12 @@ public class appointmentsDAO {
         return appointments;
     }
 
+    /**
+     * Querying database for contact's appointments report. Getting the specified data from the columns
+     * based on the contactID matching the selection of a contact. Grouped by appointmentID for duplicates.
+     * @param contactSelection
+     * @return
+     */
     public static ObservableList<Appointments> contactAppointments(int contactSelection){
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();
@@ -254,6 +301,11 @@ public class appointmentsDAO {
         return appointments;
     }
 
+    /**
+     * Querying the database for additional report past appointments. Gets the values for all the specified columns
+     * where the start of the appointment is before now.
+     * @return
+     */
     public static ObservableList<Appointments> pastAppointments(){
 
         ObservableList<Appointments> appointments = FXCollections.observableArrayList();

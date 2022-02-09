@@ -19,6 +19,7 @@ public class Customers {
         this.custPhoneNum = custPhoneNum;
         this.countryID = countryID;
         this.divID = divID;
+
     }
 
     /**

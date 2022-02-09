@@ -8,17 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Data Access Object class for the countries table.
+ * This is the DAO for countries.
  */
 public class countryDAO {
 
     /**
-     * Database query to return all countries from countries table.
-     * @return Countries observable list.
+     * Query the database for all countries.
      * @throws SQLException
      * @throws Exception
      */
     public static ObservableList<Countries> getCountries(){
+
         ObservableList<Countries> countries = FXCollections.observableArrayList();
 
         try {
@@ -40,14 +40,7 @@ public class countryDAO {
         return countries;
     }
 
-    /**
-     * Database query to return countries by name from countries table.
-     * @param countryName
-     * @return Countries observable list.
-     * @throws SQLException
-     * @throws Exception
-     */
-    public static Countries getCountryFromName(String countryName) throws SQLException, Exception{
+    /*public static Countries getCountryFromName(String countryName) throws SQLException, Exception{
         JDBC.openConnection();
         String q = "SELECT * FROM countries WHERE Country = '" + countryName + "'";
         dbQuery.Query(q);
@@ -62,16 +55,9 @@ public class countryDAO {
         }
         JDBC.closeConnection();
         return null;
-    }
+    }*/
 
-    /**
-     * Database query to return countries by id from countries table.
-     * @param countryID
-     * @return Countries observable list.
-     * @throws SQLException
-     * @throws Exception
-     */
-    public static Countries getCountryFromID(int countryID) throws SQLException, Exception{
+    /*public static Countries getCountryFromID(int countryID) throws SQLException, Exception{
         JDBC.openConnection();
         String q = "SELECT * FROM countries WHERE Country_ID = '" + countryID + "'";
         dbQuery.Query(q);
@@ -86,5 +72,5 @@ public class countryDAO {
         }
         JDBC.closeConnection();
         return null;
-    }
+    }*/
 }

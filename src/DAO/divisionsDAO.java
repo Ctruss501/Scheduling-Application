@@ -9,8 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This is the DAO class for divisions.
+ */
 public class divisionsDAO {
 
+    /**
+     * Querying the database to get all divisions from the database.
+     * @return
+     */
     public static ObservableList<Divisions> getDivisions() {
         ObservableList<Divisions> divisions = FXCollections.observableArrayList();
 

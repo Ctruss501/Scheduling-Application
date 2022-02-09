@@ -1,9 +1,8 @@
 package Model;
 
 /**
- *
+ * This is the model class for users.
  */
-
 public class User {
 
     private int userID;

@@ -1,11 +1,12 @@
 package DAO;
 
-import javax.sql.rowset.CachedRowSet;
 import java.sql.*;
 
 import static DAO.JDBC.connection;
-import DAO.JDBC;
 
+/**
+ * This is the DAO class for querying the database.
+ */
 public class dbQuery {
 
     private static String sqlQuery;
@@ -33,13 +34,7 @@ public class dbQuery {
         return resultSet;
     }
 
-    /**
-     * For inserting, updating, and deleting
-     * @param execute
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public static void executeUpdate(String execute) throws SQLException, ClassNotFoundException{
+    /*public static void executeUpdate(String execute) throws SQLException, ClassNotFoundException{
         try {
             JDBC.openConnection();
             statement = connection.createStatement();
@@ -54,8 +49,14 @@ public class dbQuery {
             }
             JDBC.closeConnection();
         }
-    }
+    }*/
 
+    /**
+     * Prepared statement to execute when inserting, updating and deleting.
+     * @param connection
+     * @param sqlStatement
+     * @throws SQLException
+     */
     public static void setPreparedStatement(Connection connection, String sqlStatement) throws SQLException{
 
         preparedStatement = connection.prepareStatement(sqlStatement);

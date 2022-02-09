@@ -32,12 +32,22 @@ public class totalCustApptReport implements Initializable {
     public ComboBox<String> monthCombo;
     public int monthSelection;
 
+    /**
+     * Populating the month combo with all 12 months in a year.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         monthCombo.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
     }
 
+    /**
+     * Handles the selection of the month combo box. The table is populated with the correlating data
+     * from the database and sets the two columns.
+     * @param actionEvent
+     */
     public void monthOnAction(ActionEvent actionEvent) {
 
         monthSelection = monthCombo.getSelectionModel().getSelectedIndex() + 1;
@@ -47,6 +57,11 @@ public class totalCustApptReport implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<>("apptID"));
     }
 
+    /**
+     * Handles the cancel button. Sends back to the main form/appointments table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
