@@ -36,7 +36,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**
+ * This is the controller class for the main form/appointment table.
+ */
 public class mainForm implements Initializable {
 
     ObservableList<Appointments> appointmentsObservableList;
@@ -65,9 +67,10 @@ public class mainForm implements Initializable {
     public Label pastApptReptLabel;
 
     /**
-     * The initialize method populates the appointment table. DateTimeFormatter was used to
-     * make the start and end times more legible and to show the date only once (in the start column).
-     * Columns are set sort by the appointment IDs.
+     * Populate the appointment table with appointment data from the database and populates the report
+     * combo box. Formatted the start and end columns. The start column displays date and time, end column
+     * displays just time. Both in 12-hour am and pm instead of 24-hour clock. Columns are set sort by
+     * the appointment IDs.
      * @param url
      * @param resourceBundle
      */
@@ -98,7 +101,11 @@ public class mainForm implements Initializable {
         reportsCombo.getItems().addAll("Total Customer Appointments", "Contact Schedule", "Past Appointments");
     }
 
-
+    /**
+     * Handles the view customers button. When pressed, sends to the customer view/customer table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void viewCustTableOnAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -110,6 +117,11 @@ public class mainForm implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Handles the add button. When pressed, sends to the add appointment screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addApptOnAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/addAppointment.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -121,6 +133,13 @@ public class mainForm implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Handles the edit button. When pressed, if no appointment is selected on the table, an error message will
+     * display to inform the user that an appointment must first be selected. Calls getAppointment method from
+     * the editAppointment controller to populate the field values from the selected appointment.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void editApptOnAction(ActionEvent actionEvent) throws IOException {
 
         Appointments selectedAppointment = apptTableView.getSelectionModel().getSelectedItem();
@@ -146,6 +165,15 @@ public class mainForm implements Initializable {
         }
     }
 
+    /**
+     * Handles the delete button. An error is set to display is there is no appointment selected when delete button
+     * is pressed. If an appointment is successfully deleted, an information alert will display with the
+     * appointment ID and Type, letting the user know of the successful cancellation. Once this occurs,
+     * the appointment table is set with the current list of appointment data from the database and the
+     * appointment table is sorted by appointment ID.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void deleteApptOnAction(ActionEvent actionEvent) throws SQLException {
 
         Appointments selectedAppointment = apptTableView.getSelectionModel().getSelectedItem();
@@ -178,6 +206,10 @@ public class mainForm implements Initializable {
         }
     }
 
+    /**
+     * Handles all radio button. When selected, displays all appointments in database.
+     * @param actionEvent
+     */
     public void allFilterOnAction(ActionEvent actionEvent){
 
         appointmentsObservableList = appointmentsDAO.getAppointments();
@@ -187,6 +219,11 @@ public class mainForm implements Initializable {
         apptTableView.sort();
     }
 
+    /**
+     * Handles week radio button. When selected, filters the table with just appointments
+     * for the current week.
+     * @param actionEvent
+     */
     public void weekFilterOnAction(ActionEvent actionEvent) {
 
         appointmentsObservableList = appointmentsDAO.getAppointmentsByWeek();
@@ -196,6 +233,11 @@ public class mainForm implements Initializable {
         apptTableView.sort();
     }
 
+    /**
+     * Handles month radio button. When selected, filters the table with just appointments
+     * for the current month.
+     * @param actionEvent
+     */
     public void monthFilterOnAction(ActionEvent actionEvent){
 
         appointmentsObservableList = appointmentsDAO.getAppointmentsByMonth();
@@ -205,6 +247,21 @@ public class mainForm implements Initializable {
         apptTableView.sort();
     }
 
+    /**
+     * Handles the reports combo box. When "Total Customer Appointments" or "Contact Schedule" is selected,
+     * will send to appropriate view. When "Past Appointments" (additional report) is selected, the appointment
+     * table view will populate with appointments from the database where appointments are in the past. A message
+     * is set to display, along with a return button, and any radio button that may have been selected at the time
+     * will be de-selected. Appointments may be deleted or selected for edit from this view as well,
+     * making it a very convenient method of deleting or updating outdated appointments.
+     *
+     * A Lambda expression is used here to set an onAction handler for the new return button that is displayed.
+     * Once the return button is pressed, it fires the all radio button to reset the table back to its original
+     * display. The report combo is also reset so that past appointments may be selected again without needing
+     * to leave this view. Also makes the return button not visible once again.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void reportsOnAction(ActionEvent actionEvent) throws IOException {
 
         reportsCombo.getSelectionModel().getSelectedItem();
@@ -242,6 +299,8 @@ public class mainForm implements Initializable {
 
             returnButton.setVisible(true);
             allRadioButton.selectedProperty().set(false);
+            weekRadioButton.selectedProperty().set(false);
+            monthRadioButton.selectedProperty().set(false);
             returnButton.setOnAction(actionEvent1 -> {
                 allRadioButton.fire();
                 pastApptReptLabel.setText(null);
@@ -251,6 +310,10 @@ public class mainForm implements Initializable {
         }
     }
 
+    /**
+     * Handles the exit button. Will close the application.
+     * @param actionEvent
+     */
     public void exitOnAction(ActionEvent actionEvent) {
             System.exit(0);
             JDBC.closeConnection();

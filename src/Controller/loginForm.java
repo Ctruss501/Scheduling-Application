@@ -33,7 +33,7 @@ import DAO.*;
 import javafx.util.Duration;
 
 /**
- * This class is for the login page of the scheduling application.
+ * This controller class is for the login page of the scheduling application.
  * Login screen is the first screen shown at the start of application.
  */
 public class loginForm implements Initializable {

@@ -35,6 +35,9 @@ import java.time.format.FormatStyle;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * This controller class is for adding new appointments.
+ */
 public class addAppointment implements Initializable {
 
     public TextField apptIDTextField;
@@ -49,6 +52,11 @@ public class addAppointment implements Initializable {
     public ComboBox<User> userCombo;
     public TextField descTextField;
 
+    /**
+     * Observable list for the start and end combo boxes so that the times available to be chosen
+     * are between 8am and 10pm.
+     * @return
+     */
     public static ObservableList<LocalTime> time(){
 
         ObservableList<LocalTime> timeOL = FXCollections.observableArrayList();
@@ -62,6 +70,12 @@ public class addAppointment implements Initializable {
         return timeOL;
     }
 
+    /**
+     * Setting the values in their correlating combo boxes. For start and end combos,
+     * converting them to show the time in 12-hour clock am and pm instead of 24-hour clock.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -77,6 +91,14 @@ public class addAppointment implements Initializable {
         endTimeCombo.setConverter(new LocalTimeStringConverter(timeFormatter, timeFormatter));
     }
 
+    /**
+     * Handles the save button. Gets the values from the fields to save to the database. Alerts are in
+     * place to show error messages for any fields that do not have values. Also handles time
+     * conversion and checks for any discrepancies with chosen times.
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     public void saveOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
         String title = titleTextField.getText();
@@ -233,7 +255,13 @@ public class addAppointment implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Handles the cancel button. When pressed, will send back to the main form/appointment table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {
+
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1300, 530);

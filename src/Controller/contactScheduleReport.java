@@ -43,12 +43,24 @@ public class contactScheduleReport implements Initializable {
     public ComboBox<Contacts> contactCombo;
     public int contactSelection;
 
+    /**
+     * Populates the combo box with all contacts.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         contactCombo.setItems(contactsDAO.getContacts());
     }
 
+    /**
+     * Handles the action for the contact combo box. When a contact is selected, the table will
+     * populate with all the related appointment data for that contact. Formatted the start and end columns.
+     * The start column displays date and time, end column displays just time. Both in 12-hour am and pm
+     * instead of 24-hour clock.
+     * @param actionEvent
+     */
     public void contactOnAction(ActionEvent actionEvent) {
 
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy      hh:mm a");
@@ -72,6 +84,11 @@ public class contactScheduleReport implements Initializable {
         contactSchedTableView.sort();
     }
 
+    /**
+     * Handles cancel button. When pressed, sends back to the main form/appointment table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));

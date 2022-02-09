@@ -21,6 +21,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller class for the customerView/Customer table.
+ */
 public class customerView implements Initializable {
     public TableView<Customers> customerTableView;
     public TableColumn<Customers, Integer> custIDColumn;
@@ -31,7 +34,12 @@ public class customerView implements Initializable {
     public TableColumn<Customers, String> custPhoneColumn;
     public TableColumn<Customers, String> custCountryColumn;
 
-
+    /**
+     * Populating the customer table columns with their correlating data form the database.
+     * Sorting the table by customer ID.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -49,6 +57,11 @@ public class customerView implements Initializable {
         customerTableView.sort();
     }
 
+    /**
+     * Handles add button. When pressed sends to the add customer screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addOnAction(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/addCustomer.fxml"));
@@ -61,6 +74,13 @@ public class customerView implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Handles the edit button. When pressed, if no customer is selected on the table, an error message will
+     * display to inform the user that a customer must first be selected. Calls getCustomer method from
+     * the editCustomer controller to populate the field values from the selected customer.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void editOnAction(ActionEvent actionEvent) throws IOException {
 
         Customers selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
@@ -86,6 +106,11 @@ public class customerView implements Initializable {
         }
     }
 
+    /**
+     * Handles the back button. When pressed, will send back to the main form/appointment table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backOnAction(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
@@ -98,6 +123,18 @@ public class customerView implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Handles the delete button. When pressed, will check the appointments in the database to
+     * see if there are any appointments that have a match with the selected customer. If there is a
+     * match, an error will display to let the user know that the appointments for that customer must
+     * be deleted first. Another error is set to display is there is no customer selected when delete button
+     * is pressed. If a customer is successfully deleted, an information alert will display with the
+     * customer ID and Name, letting the user know of the successful deletion. Once this occurs, the customer
+     * table is set with the current list of customer data from the database and the customer table is
+     * sorted by customer ID.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void deleteOnAction(ActionEvent actionEvent) throws SQLException {
 
         Customers selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();

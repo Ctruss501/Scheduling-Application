@@ -26,6 +26,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller class for editing exiting appointments.
+ */
 public class editAppointment implements Initializable {
     public TextField apptIDTextField;
     public TextField titleTextField;
@@ -39,7 +42,11 @@ public class editAppointment implements Initializable {
     public ComboBox<Contacts> contactCombo;
     public ComboBox<User> userCombo;
 
-
+    /**
+     * Observable list for the start and end combo boxes so that the times available to be chosen
+     * are between 8am and 10pm.
+     * @return
+     */
     public static ObservableList<LocalTime> time(){
 
         ObservableList<LocalTime> timeOL = FXCollections.observableArrayList();
@@ -53,6 +60,12 @@ public class editAppointment implements Initializable {
         return timeOL;
     }
 
+    /**
+     * Setting the values in their correlating combo boxes. For start and end combos,
+     * converting them to show the time in 12-hour clock am and pm instead of 24-hour clock.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -68,6 +81,14 @@ public class editAppointment implements Initializable {
         endTimeCombo.setConverter(new LocalTimeStringConverter(timeFormatter, timeFormatter));
     }
 
+    /**
+     * Handles the save button. Gets the values from the fields to save to the database. Alerts are in
+     * place to show error messages for any fields that do not have values. Also handles time
+     * conversion and checks for any discrepancies with chosen times.
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     public void saveOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
         int apptID = Integer.parseInt(apptIDTextField.getText());
@@ -226,6 +247,11 @@ public class editAppointment implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Handles the cancel button. When pressed, will send back to the main form/appointment table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
@@ -238,6 +264,11 @@ public class editAppointment implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Gets the selected appointment from the mainForm and database. Sets the correlating
+     * fields with the values from the selected appointment.
+     * @param selectedAppointment
+     */
     public void getAppointment(Appointments selectedAppointment){
 
         apptIDTextField.setText(String.valueOf(selectedAppointment.getApptID()));

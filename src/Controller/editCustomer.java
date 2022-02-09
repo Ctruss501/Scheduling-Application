@@ -24,6 +24,9 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for editing an existing customer.
+ */
 public class editCustomer implements Initializable {
     public TextField custIDTextField;
     public TextField nameTextField;
@@ -33,7 +36,12 @@ public class editCustomer implements Initializable {
     public ComboBox<Divisions> divisionCombo;
     public ComboBox<Countries> countryCombo;
 
-
+    /**
+     * Sets the values for the country and division combo boxes. The division combo
+     * is dependent and filtered based on the country that is selected.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -51,13 +59,25 @@ public class editCustomer implements Initializable {
         });
     }
 
+    /**
+     * Created a filtered list for divisions. The divisions are based on which matching Country IDs.
+     * Lambda expression is used here to get the Country IDs and check for match.
+     * @param newValue
+     * @return
+     */
     public ObservableList<Divisions> filterDivisions(Countries newValue) {
 
         ObservableList<Divisions> divisions = divisionsDAO.getDivisions();
         return new FilteredList<>(divisions, i -> i.getCountryID() == countryCombo.getSelectionModel().getSelectedItem().getCountryID());
     }
 
-    public void saveOnAction(ActionEvent actionEvent) throws IOException {
+    /**
+     * Handles the save button. Gets the values from the fields to save to the database. Alerts are in
+     * place to show error messages for any fields that do not have values.
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void saveOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
         int custID = Integer.parseInt(custIDTextField.getText());
 
@@ -109,13 +129,13 @@ public class editCustomer implements Initializable {
             alert.showAndWait();
         }
 
-        try{
-            JDBC.openConnection();
+        //try{
+            //JDBC.openConnection();
             customersDAO.editCustomer(custID, custName, custAddress, custPostal, custPhone, country.getCountryName(), division);
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
+        //}
+        //catch (SQLException e){
+            //e.printStackTrace();
+        //}
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -127,6 +147,11 @@ public class editCustomer implements Initializable {
         stage.setResizable(false);
     }
 
+    /**
+     * Handles the cancel button. When pressed, will send back to the customer view/table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
@@ -140,8 +165,8 @@ public class editCustomer implements Initializable {
     }
 
     /**
-     * Populates the information for the customer that was selected from the customer table.
-     * This method is called in the edit customer action in the customerView controller.
+     * Gets the selected appointment from the customerView and database. Sets the correlating
+     * fields with the values from the selected customer.
      * @param selectedCustomer
      */
     public void getCustomer(Customers selectedCustomer) {
@@ -165,19 +190,6 @@ public class editCustomer implements Initializable {
                 break;
             }
         }
-
-        //for(Countries countries : countryCombo.getItems()){
-        //if(Objects.equals(selectedCustomer.getCountryID(), countries.getCountryName())){
-        //countryCombo.setValue(countries);
-        //break;
-        //}
-        //}
-        //for(Divisions divisions : divisionCombo.getItems()) {
-            //if (Objects.equals(selectedCustomer.getDivID(), divisions.getDivDivision())) {
-                //divisionCombo.setValue(divisions);
-                //break;
-            //}
-        //}
     }
 }
 

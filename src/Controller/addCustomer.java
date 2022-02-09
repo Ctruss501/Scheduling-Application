@@ -24,6 +24,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * This is the controller for adding a new customer.
+ */
 public class addCustomer implements Initializable {
     public TextField custIDTextField;
     public TextField nameTextField;
@@ -33,7 +36,12 @@ public class addCustomer implements Initializable {
     public ComboBox<Divisions> divisionCombo;
     public ComboBox<Countries> countryCombo;
 
-
+    /**
+     * Sets the values for the country and division combo boxes. The division combo
+     * is dependent and filtered based on the country that is selected.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -51,13 +59,25 @@ public class addCustomer implements Initializable {
         });
     }
 
+    /**
+     * Created a filtered list for divisions. The divisions are based on which matching Country IDs.
+     * Lambda expression is used here to get the Country IDs and check for match.
+     * @param newValue
+     * @return
+     */
     public ObservableList<Divisions> filterDivisions(Countries newValue) {
 
         ObservableList<Divisions> divisions = divisionsDAO.getDivisions();
         return new FilteredList<>(divisions, i -> i.getCountryID() == countryCombo.getSelectionModel().getSelectedItem().getCountryID());
     }
 
-    public void saveOnAction(ActionEvent actionEvent) throws IOException {
+    /**
+     * Handles the save button. Gets the values from the fields to save to the database. Alerts are in
+     * place to show error messages for any fields that do not have values.
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void saveOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
         String custName = nameTextField.getText();
         if(nameTextField.getText().isEmpty()){
@@ -107,13 +127,13 @@ public class addCustomer implements Initializable {
             alert.showAndWait();
         }
 
-        try{
-            JDBC.openConnection();
+        //try{
+            //JDBC.openConnection();
             customersDAO.addCustomer(custName, custAddress, custPostal, custPhone, country.getCountryName(), division);
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
+        //}
+        //catch (SQLException e){
+            //e.printStackTrace();
+        //}
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -126,6 +146,11 @@ public class addCustomer implements Initializable {
 
     }
 
+    /**
+     * Handles the cancel button. When pressed, will send back to the customer view/table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelOnAction(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
