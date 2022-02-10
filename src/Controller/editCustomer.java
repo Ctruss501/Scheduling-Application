@@ -127,6 +127,7 @@ public class editCustomer implements Initializable {
             alert.setTitle("Select a Division");
             alert.setContentText("The customer must have a division.");
             alert.showAndWait();
+            return;
         }
 
         customersDAO.editCustomer(custID, custName, custAddress, custPostal, custPhone, country.getCountryName(), division.getDivID());
