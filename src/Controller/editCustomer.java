@@ -121,7 +121,7 @@ public class editCustomer implements Initializable {
             alert.showAndWait();
             return;
         }
-        int division = divisionCombo.getValue().getDivID();
+        Divisions division = divisionCombo.getSelectionModel().getSelectedItem();
         if(divisionCombo.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Select a Division");
@@ -129,13 +129,7 @@ public class editCustomer implements Initializable {
             alert.showAndWait();
         }
 
-        //try{
-            //JDBC.openConnection();
-            customersDAO.editCustomer(custID, custName, custAddress, custPostal, custPhone, country.getCountryName(), division);
-        //}
-        //catch (SQLException e){
-            //e.printStackTrace();
-        //}
+        customersDAO.editCustomer(custID, custName, custAddress, custPostal, custPhone, country.getCountryName(), division.getDivID());
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

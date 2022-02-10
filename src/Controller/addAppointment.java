@@ -23,6 +23,7 @@ import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -102,7 +103,7 @@ public class addAppointment implements Initializable {
     public void saveOnAction(ActionEvent actionEvent) throws IOException, SQLException {
 
         String title = titleTextField.getText();
-        if(titleTextField.getText().isEmpty()){
+        if (titleTextField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Title Empty");
             alert.setContentText("The appointment must have a title.");
@@ -110,7 +111,7 @@ public class addAppointment implements Initializable {
             return;
         }
         String type = typeCombo.getSelectionModel().getSelectedItem();
-        if(typeCombo.getSelectionModel().getSelectedItem() == null){
+        if (typeCombo.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Type Empty");
             alert.setContentText("The appointment must have a type.");
@@ -118,7 +119,7 @@ public class addAppointment implements Initializable {
             return;
         }
         String location = locationTextField.getText();
-        if(locationTextField.getText().isEmpty()){
+        if (locationTextField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Location Empty");
             alert.setContentText("The appointment must have a location.");
@@ -126,41 +127,24 @@ public class addAppointment implements Initializable {
             return;
         }
         String desc = descTextField.getText();
-        if(descTextField.getText().isEmpty()) {
+        if (descTextField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Description Empty");
             alert.setContentText("The appointment must have a description.");
             alert.showAndWait();
             return;
         }
-        //Combining the date picker with the time combos
-        LocalDateTime selectedStart = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
-        LocalDateTime selectedEnd = LocalDateTime.of(startDatePicker.getValue(), endTimeCombo.getValue());
-
-        //ZoneId for the user's system.
-        ZoneId systemZone = ZoneId.systemDefault();
-        //ZoneId for est.
-        ZoneId est = ZoneId.of("America/New_York");
-
-        LocalTime businessStart = LocalTime.of(8, 0);
-        LocalTime businessEnd = LocalTime.of(22,0);
-
-        //Selected start and end time to system's zone.
-        ZonedDateTime systemStartZDT = ZonedDateTime.of(selectedStart, systemZone);
-        ZonedDateTime systemEndZDT = ZonedDateTime.of(selectedEnd, systemZone);
-
-        //Selected start and end time with system's zone converted to est.
-        ZonedDateTime estStartZDT = systemStartZDT.withZoneSameInstant(est);
-        ZonedDateTime estEndZDT = systemEndZDT.withZoneSameInstant(est);
-
-        //Selected start and end time that was converted to est, converting to
-        //local date and time for comparison to business hours, which are 8a-10p est.
-        LocalTime businessStartEst = estStartZDT.toLocalDateTime().toLocalTime();
-        LocalTime businessEndEst = estEndZDT.toLocalDateTime().toLocalTime();
-        if(startDatePicker.getValue() == null){
+        if (startDatePicker.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Select Appointment Date");
             alert.setContentText("Please select a date for the appointment.");
+            alert.showAndWait();
+            return;
+        }
+        if(startDatePicker.getValue().isBefore(LocalDate.now())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Appointment Date");
+            alert.setContentText("Appointment Date can't be before today.");
             alert.showAndWait();
             return;
         }
@@ -178,6 +162,32 @@ public class addAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
+
+        //Combining the date picker with the time combos
+        LocalDateTime selectedStart = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
+        LocalDateTime selectedEnd = LocalDateTime.of(startDatePicker.getValue(), endTimeCombo.getValue());
+
+        //ZoneId for the user's system.
+        ZoneId systemZone = ZoneId.systemDefault();
+        //ZoneId for est.
+        ZoneId est = ZoneId.of("America/New_York");
+
+        LocalTime businessStart = LocalTime.of(8, 0);
+        LocalTime businessEnd = LocalTime.of(22, 0);
+
+        //Selected start and end time to system's zone.
+        ZonedDateTime systemStartZDT = ZonedDateTime.of(selectedStart, systemZone);
+        ZonedDateTime systemEndZDT = ZonedDateTime.of(selectedEnd, systemZone);
+
+        //Selected start and end time with system's zone converted to est.
+        ZonedDateTime estStartZDT = systemStartZDT.withZoneSameInstant(est);
+        ZonedDateTime estEndZDT = systemEndZDT.withZoneSameInstant(est);
+
+        //Selected start and end time that was converted to est, converting to
+        //local date and time for comparison to business hours, which are 8a-10p est.
+        LocalTime businessStartEst = estStartZDT.toLocalDateTime().toLocalTime();
+        LocalTime businessEndEst = estEndZDT.toLocalDateTime().toLocalTime();
+
         if(startTimeCombo.getValue().isAfter(endTimeCombo.getValue()) || startTimeCombo.getValue().equals(endTimeCombo.getValue())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Selected Appointment Time");
@@ -235,15 +245,16 @@ public class addAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-        int contact = contactCombo.getValue().getContactID();
+        Contacts contact = contactCombo.getSelectionModel().getSelectedItem();
         if(contactCombo.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Select a Contact");
             alert.setContentText("Please select a contact for the appointment.");
             alert.showAndWait();
+            return;
         }
 
-        appointmentsDAO.addAppointment(title, desc, location, type, selectedStart, selectedEnd, customer.getCustID(), user.getUserID(), contact);
+        appointmentsDAO.addAppointment(title, desc, location, type, selectedStart, selectedEnd, customer.getCustID(), user.getUserID(), contact.getContactID());
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

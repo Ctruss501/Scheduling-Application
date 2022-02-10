@@ -125,6 +125,35 @@ public class editAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
+        if(startDatePicker.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Select Appointment Date");
+            alert.setContentText("Please select a date for the appointment.");
+            alert.showAndWait();
+            return;
+        }
+        if(startDatePicker.getValue().isBefore(LocalDate.now())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Appointment Date");
+            alert.setContentText("Appointment Date can't be before today.");
+            alert.showAndWait();
+            return;
+        }
+        if(startTimeCombo.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Select Appointment Start Time");
+            alert.setContentText("Please select a start time for the appointment.");
+            alert.showAndWait();
+            return;
+        }
+        if(endTimeCombo.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Select Appointment End Time");
+            alert.setContentText("Please select an end time for the appointment.");
+            alert.showAndWait();
+            return;
+        }
+
         //Combining the date picker with the time combos
         LocalDateTime selectedStart = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
         LocalDateTime selectedEnd = LocalDateTime.of(startDatePicker.getValue(), endTimeCombo.getValue());
@@ -149,27 +178,7 @@ public class editAppointment implements Initializable {
         //local date and time for comparison to business hours, which are 8a-10p est.
         LocalTime businessStartEst = estStartZDT.toLocalDateTime().toLocalTime();
         LocalTime businessEndEst = estEndZDT.toLocalDateTime().toLocalTime();
-        if(startDatePicker.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Select Appointment Date");
-            alert.setContentText("Please select a date for the appointment.");
-            alert.showAndWait();
-            return;
-        }
-        if(startTimeCombo.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Select Appointment Start Time");
-            alert.setContentText("Please select a start time for the appointment.");
-            alert.showAndWait();
-            return;
-        }
-        if(endTimeCombo.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Select Appointment End Time");
-            alert.setContentText("Please select an end time for the appointment.");
-            alert.showAndWait();
-            return;
-        }
+
         if(startTimeCombo.getValue().isAfter(endTimeCombo.getValue()) || startTimeCombo.getValue().equals(endTimeCombo.getValue())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Selected Appointment Time");
@@ -227,15 +236,16 @@ public class editAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-        int contact = contactCombo.getValue().getContactID();
+        Contacts contact = contactCombo.getSelectionModel().getSelectedItem();
         if(contactCombo.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Select a Contact");
             alert.setContentText("Please select a contact for the appointment.");
             alert.showAndWait();
+            return;
         }
 
-        appointmentsDAO.editAppointment(apptID, title, desc, location, type, selectedStart, selectedEnd, customer.getCustID(), user.getUserID(), contact);
+        appointmentsDAO.editAppointment(apptID, title, desc, location, type, selectedStart, selectedEnd, customer.getCustID(), user.getUserID(), contact.getContactID());
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/mainForm.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

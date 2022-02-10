@@ -119,21 +119,16 @@ public class addCustomer implements Initializable {
             alert.showAndWait();
             return;
         }
-        int division = divisionCombo.getValue().getDivID();
+        Divisions division = divisionCombo.getSelectionModel().getSelectedItem();
         if(divisionCombo.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Select a Division");
             alert.setContentText("The customer must have a division.");
             alert.showAndWait();
+            return;
         }
 
-        //try{
-            //JDBC.openConnection();
-            customersDAO.addCustomer(custName, custAddress, custPostal, custPhone, country.getCountryName(), division);
-        //}
-        //catch (SQLException e){
-            //e.printStackTrace();
-        //}
+        customersDAO.addCustomer(custName, custAddress, custPostal, custPhone, country.getCountryName(), division.getDivID());
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/customerView.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
