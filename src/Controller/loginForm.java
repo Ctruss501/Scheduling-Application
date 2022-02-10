@@ -3,8 +3,6 @@ package Controller;
 import Model.Appointments;
 import Model.User;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

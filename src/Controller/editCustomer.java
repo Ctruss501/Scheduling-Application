@@ -1,6 +1,5 @@
 package Controller;
 
-import DAO.JDBC;
 import DAO.countryDAO;
 import DAO.customersDAO;
 import DAO.divisionsDAO;

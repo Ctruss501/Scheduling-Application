@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * This is the model class for customers.
+ */
 public class Customers {
 
     private int custID;
@@ -9,7 +12,6 @@ public class Customers {
     private String custPhoneNum;
     private String countryID;
     private String divID;
-
 
     public Customers(int custID, String custName, String custAddress, String custPostalCode, String custPhoneNum, String countryID, String divID){
         this.custID = custID;

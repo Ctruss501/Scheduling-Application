@@ -41,27 +41,4 @@ public class contactsDAO {
         }
         return contacts;
     }
-
-    /*public static Contacts getContactsByName(String contactName) throws SQLException, Exception{
-
-        try {
-            JDBC.openConnection();
-            String q = "SELECT * FROM countries WHERE Country = '" + contactName + "'";
-            dbQuery.Query(q);
-            Contacts result;
-            ResultSet resultSet = dbQuery.getResultSet();
-
-            while (resultSet.next()){
-                int contactID = resultSet.getInt("Contact_ID");
-                contactName = resultSet.getString("Contact_Name");
-                String contactEmail = resultSet.getString("Email");
-                result = new Contacts(contactID,contactName,contactEmail);
-                return result;
-            }
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 }

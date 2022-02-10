@@ -40,30 +40,4 @@ public class userDAO {
         }
         return users;
     }
-
-    /*public static ObservableList<User> getUsersFromUsername(){
-
-        ObservableList<User> users = FXCollections.observableArrayList();
-
-        try {
-            JDBC.openConnection();
-            String q = "SELECT User_Name FROM users";
-            dbQuery.Query(q);
-            ResultSet resultSet = dbQuery.getResultSet();
-
-            while (resultSet.next()) {
-                //int userID = resultSet.getInt("User_ID");
-                String usernameA = resultSet.getString("User_Name");
-               //String password = resultSet.getString("Password");
-                User result = new User(usernameA);
-                users.add(result);
-            }
-            JDBC.closeConnection();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        return users;
-    }*/
-
 }

@@ -39,38 +39,4 @@ public class countryDAO {
         }
         return countries;
     }
-
-    /*public static Countries getCountryFromName(String countryName) throws SQLException, Exception{
-        JDBC.openConnection();
-        String q = "SELECT * FROM countries WHERE Country = '" + countryName + "'";
-        dbQuery.Query(q);
-        Countries result;
-        ResultSet resultSet = dbQuery.getResultSet();
-
-        while (resultSet.next()){
-            int countryID_A = resultSet.getInt("Country_ID");
-            String countryName_A= resultSet.getString("Country");
-            result = new Countries(countryID_A, countryName_A);
-            return result;
-        }
-        JDBC.closeConnection();
-        return null;
-    }*/
-
-    /*public static Countries getCountryFromID(int countryID) throws SQLException, Exception{
-        JDBC.openConnection();
-        String q = "SELECT * FROM countries WHERE Country_ID = '" + countryID + "'";
-        dbQuery.Query(q);
-        Countries result;
-        ResultSet resultSet = dbQuery.getResultSet();
-
-        while (resultSet.next()){
-            int countryID_B = resultSet.getInt("Country_ID");
-            String countryName_B= resultSet.getString("Country");
-            result = new Countries(countryID_B, countryName_B);
-            return result;
-        }
-        JDBC.closeConnection();
-        return null;
-    }*/
 }
