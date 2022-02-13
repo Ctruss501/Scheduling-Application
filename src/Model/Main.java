@@ -7,10 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-import java.time.ZoneId;
-import java.util.Locale;
-
 /**
  * Main class is for the start of the Scheduling Application.
  */

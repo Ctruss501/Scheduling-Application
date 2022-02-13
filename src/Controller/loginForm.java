@@ -17,9 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
@@ -29,6 +27,7 @@ import java.io.*;
 
 import DAO.*;
 import javafx.util.Duration;
+
 
 /**
  * This controller class is for the login page of the scheduling application.
@@ -105,7 +104,7 @@ public class loginForm implements Initializable {
 
     /**
      * This method handles to log-in button for the user, along with logging the user's successful and unsuccessful
-     * log in attempts. If the user's username and/or password are incorrect, the label will show, letting the
+     * log in attempts to the login_activity.txt file. If the user's username and/or password are incorrect, the label will show, letting the
      * user know to try again.
      *
      * Also in this method, after the stage is set, is the function to display a pop-up message for the user if they
@@ -149,39 +148,40 @@ public class loginForm implements Initializable {
             stage.centerOnScreen();
             stage.setResizable(false);
 
-            for(int j = 0; j < appointmentsDAO.getAppointments().size(); j++){
+
+            boolean found = false;
+            for(int j = 0; j < appointmentsDAO.getAppointments().size(); j++) {
                 Appointments appointments = appointmentsDAO.getAppointments().get(j);
 
                 for(int i = 0; i < userDAO.getUsers().size(); i++) {
                     User user = userDAO.getUsers().get(i);
 
-                    if(Objects.equals(appointments.getUser(), user.getUsername())){
+                    if(Objects.equals(user.getUsername(), appointments.getUser()) &&
+                            (appointments.getStart().isBefore(LocalDateTime.now().plusMinutes(15)) && appointments.getStart().isAfter(LocalDateTime.now().plusSeconds(1)))) {
 
-                        if(appointments.getStart().isBefore(LocalDateTime.now().plusMinutes(15)) && appointments.getStart().isAfter(LocalDateTime.now().plusSeconds(1))){
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Upcoming Appointments");
-                            alert.setContentText("Welcome back. You have an appointment within the next 15 minutes.");
+                            alert.setContentText("Welcome back " + user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1).toLowerCase() +
+                                    ". You have a " + appointments.getApptType() + " appointment within the next 15 minutes.");
                             PauseTransition delay = new PauseTransition(Duration.seconds(1));
                             delay.setOnFinished(e -> alert.show());
                             delay.play();
-                            return;
-                        }
-                        else {
-                            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                            alert1.setTitle("Upcoming Appointments");
-                            alert1.setContentText("Welcome back. You do not currently have an appointment within the next 15 minutes.");
-                            PauseTransition delay = new PauseTransition(Duration.seconds(1));
-                            delay.setOnFinished(e -> alert1.show());
-                            delay.play();
-                            return;
-                        }
+                            found = true;
                     }
+                    break;
                 }
             }
+            if(!found) {
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Upcoming Appointments");
+                alert1.setContentText("Welcome back " + username.substring(0, 1).toUpperCase() + username.substring(1).toLowerCase() +
+                        ". You do not currently have an appointment within the next 15 minutes.");
+                PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                delay.setOnFinished(e -> alert1.show());
+                delay.play();
+            }
         }
-
         else {
-
             printWriter.println("Login Unsuccessful" + "    " +
                     "Username: " + usernameTextField.getText() + "  " +
                     "Password: " + passwordPasswordField.getText() + "  " +

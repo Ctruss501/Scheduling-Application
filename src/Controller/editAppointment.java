@@ -4,7 +4,6 @@ import DAO.*;
 import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,9 +50,34 @@ public class editAppointment implements Initializable {
 
         ObservableList<LocalTime> timeOL = FXCollections.observableArrayList();
 
-        LocalTime start = LocalTime.of(8, 0);
-        LocalTime end = LocalTime.of(22,0);
-        while(start.isBefore(end.plusSeconds(1))){
+        //ZoneId for the user's system.
+        ZoneId systemZone = ZoneId.systemDefault();
+        //ZoneId for est.
+        ZoneId est = ZoneId.of("America/New_York");
+
+        //Setting start and end time within business hours of 8a-10p est.
+        LocalTime businessStart = LocalTime.of(8, 0);
+        LocalTime businessEnd = LocalTime.of(22, 0);
+
+        //Convert local times to zoned date and time est.
+        ZonedDateTime estStartZDT = ZonedDateTime.of(LocalDate.now(), businessStart, est);
+        ZonedDateTime estEndZDT = ZonedDateTime.of(LocalDate.now(), businessEnd, est);
+
+        //Convert zoned date and times of est to user's local zone.
+        ZonedDateTime systemStartZDT = estStartZDT.withZoneSameInstant(systemZone);
+        ZonedDateTime systemEndZDT = estEndZDT.withZoneSameInstant(systemZone);
+
+        //Converting the user's system zoned date and time to just local time for populating the combo boxes.
+        LocalTime start = systemStartZDT.toLocalTime();
+        LocalTime end = systemEndZDT.toLocalTime();
+
+        //LocalTime start = LocalTime.of(8, 0);
+        //LocalTime end = LocalTime.of(22,0);
+        //while(start.isBefore(end.plusSeconds(1))){
+            //timeOL.add(LocalTime.parse(String.valueOf(start)));
+            //start = start.plusMinutes(15);
+        //}
+        while (start.isBefore(end.plusSeconds(1))){
             timeOL.add(LocalTime.parse(String.valueOf(start)));
             start = start.plusMinutes(15);
         }

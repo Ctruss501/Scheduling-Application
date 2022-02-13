@@ -17,22 +17,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.*;
-import java.time.chrono.ChronoLocalDateTime;
-import java.time.chrono.ChronoZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -58,13 +50,39 @@ public class addAppointment implements Initializable {
      * are between 8am and 10pm.
      * @return
      */
-    public static ObservableList<LocalTime> time(){
+    public  ObservableList<LocalTime> time(){
 
         ObservableList<LocalTime> timeOL = FXCollections.observableArrayList();
 
-        LocalTime start = LocalTime.of(8, 0);
-        LocalTime end = LocalTime.of(22,0);
-        while(start.isBefore(end.plusSeconds(1))){
+        //ZoneId for the user's system.
+        ZoneId systemZone = ZoneId.systemDefault();
+        //ZoneId for est.
+        ZoneId est = ZoneId.of("America/New_York");
+
+        //Setting start and end time within business hours of 8a-10p est.
+        LocalTime businessStart = LocalTime.of(8, 0);
+        LocalTime businessEnd = LocalTime.of(22, 0);
+
+        //Convert local times to zoned date and time est.
+        ZonedDateTime estStartZDT = ZonedDateTime.of(LocalDate.now(), businessStart, est);
+        ZonedDateTime estEndZDT = ZonedDateTime.of(LocalDate.now(), businessEnd, est);
+
+        //Convert zoned date and times of est to user's local zone.
+        ZonedDateTime systemStartZDT = estStartZDT.withZoneSameInstant(systemZone);
+        ZonedDateTime systemEndZDT = estEndZDT.withZoneSameInstant(systemZone);
+
+        //Converting the user's system zoned date and time to just local time for populating the combo boxes.
+        LocalTime start = systemStartZDT.toLocalTime();
+        LocalTime end = systemEndZDT.toLocalTime();
+
+
+        //LocalTime start = LocalTime.of(8, 0);
+        //LocalTime end = LocalTime.of(22,0);
+        //while(start.isBefore(end.plusSeconds(1))){
+            //timeOL.add(LocalTime.parse(String.valueOf(start)));
+            //start = start.plusMinutes(15);
+        //}
+        while (start.isBefore(end.plusSeconds(1))){
             timeOL.add(LocalTime.parse(String.valueOf(start)));
             start = start.plusMinutes(15);
         }

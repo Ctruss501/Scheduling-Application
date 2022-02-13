@@ -1,8 +1,6 @@
 package DAO;
 
 import Model.Contacts;
-import Model.Countries;
-import Model.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

@@ -1,14 +1,11 @@
 package DAO;
 
 import Model.Appointments;
-import Model.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 import java.sql.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 
 /**
  * This is the DAO class for querying appointments.
