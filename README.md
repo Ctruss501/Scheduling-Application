@@ -4,8 +4,7 @@ This is an application that can be used for scheduling appointments </br>
 with customers. The application gives the user the ability to add, modify, </br>
 and delete both customers and appointments.
 
-Corey Trussell </br>
-ctus10@wgu.edu, ID: 001366817 </br>
+Corey Trussell </br></br>
 version 1 </br>
 02/08/2022
 
